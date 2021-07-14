@@ -14,15 +14,15 @@ public class RegisterDto {
     @NotNull
     private String lastName;
 
-    @Min(4)
-    private String login;
+    @NotNull
+    private String username;
 
-    @Min(4)
+
     private String email;
 
-    @Min(4)
+
     private String password;
 
-    @Min(4)
+
     private String confirm_password;
 }

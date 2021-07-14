@@ -52,8 +52,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByUserLogin(String userLogin) {
-        return userRepository.findByLogin(userLogin);
+    public User findByUsername(String userName) {
+        return userRepository.findByUsername(userName);
     }
 
     @Override
@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
         Role userRole = roleRepository.findByName("ROLE_USER");
         User user = new User(dto.getFirstName(),
                              dto.getLastName(),
-                             dto.getLogin(),
+                             dto.getUsername(),
                              passwordEncoder.encode(dto.getPassword()),
                              dto.getEmail(),
                              true,

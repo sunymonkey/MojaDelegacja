@@ -6,5 +6,5 @@ import pl.sunymonkey.mojadelegacja.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    User findByLogin(String userLogin);
+    User findByUsername(String userLogin);
 }

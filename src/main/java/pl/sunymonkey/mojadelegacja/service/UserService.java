@@ -11,6 +11,6 @@ public interface UserService {
     User save(User u);
     User saveAdmin(User u);
     List<User> findAll();
-    User findByUserLogin(String userLogin);
+    User findByUsername(String username);
     User registerUser(RegisterDto dto) throws RegisterFailedException;
 }

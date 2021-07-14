@@ -31,12 +31,12 @@ public class MojaDelegacjaApplication {
                     r.setName("ROLE_USER");
                     roleService.save(r);
                 }
-                if(userService.findByUserLogin("admin")==null){ //tworze admina
+                if(userService.findByUsername("admin")==null){ //tworze admina
 
                     User user = new User();
                     user.setFirstName("Super user");
                     user.setLastName("Super user");
-                    user.setLogin("admin");
+                    user.setUsername("admin");
                     user.setPassword("admin");
                     userService.saveAdmin(user);
                 }

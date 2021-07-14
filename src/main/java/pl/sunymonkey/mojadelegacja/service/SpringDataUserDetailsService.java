@@ -19,7 +19,7 @@ public class SpringDataUserDetailsService implements UserDetailsService {
 
     @Override
     public CurrentUser loadUserByUsername(String s) throws UsernameNotFoundException {
-        User user = userService.findByUserLogin(s);
+        User user = userService.findByUsername(s);
         if (user == null) {
             throw new UsernameNotFoundException(s);
         }
@@ -28,6 +28,6 @@ public class SpringDataUserDetailsService implements UserDetailsService {
             grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
         }
 
-        return new CurrentUser(user.getLogin(), user.getPassword(), grantedAuthorities, user);
+        return new CurrentUser(user.getUsername(), user.getPassword(), grantedAuthorities, user);
     }
 }

@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,31 +21,44 @@
     <div class="signup-content">
       <div class="signup-form">
         <h2 class="form-title">Sign up</h2>
-        <form method="POST" class="register-form" id="register-form">
+
+        <form:form method="POST">
+          <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
           <div class="form-group">
-            <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-            <input type="text" name="name" id="name" placeholder="Your Name"/>
+            <label for="firstName"><i class="zmdi zmdi-account material-icons-name"></i></label>
+            <input type="text" name="firstName" id="firstName" placeholder="Twoje imię" required="required"/>
           </div>
+
+          <div class="form-group">
+            <label for="lastName"><i class="zmdi zmdi-account material-icons-name"></i></label>
+            <input type="text" name="lastName" id="lastName" placeholder="Twoje nazwisko" required="required"/>
+          </div>
+
+          <div class="form-group">
+            <label for="login"><i class="zmdi zmdi-account material-icons-name"></i></label>
+            <input type="text" name="login" id="login" placeholder="Twój login" required="required"/>
+          </div>
+
           <div class="form-group">
             <label for="email"><i class="zmdi zmdi-email"></i></label>
-            <input type="email" name="email" id="email" placeholder="Your Email"/>
+            <input type="email" name="email" id="email" placeholder="Twój Email" required="required"/>
           </div>
+
           <div class="form-group">
-            <label for="pass"><i class="zmdi zmdi-lock"></i></label>
-            <input type="password" name="pass" id="pass" placeholder="Password"/>
+            <label for="password"><i class="zmdi zmdi-lock"></i></label>
+            <input type="password" name="password" id="password" placeholder="Hasło" required="required"/>
           </div>
+
           <div class="form-group">
-            <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
-            <input type="password" name="re_pass" id="re_pass" placeholder="Repeat your password"/>
+            <label for="confirm_password"><i class="zmdi zmdi-lock-outline"></i></label>
+            <input type="password" name="confirm_password" id="confirm_password" placeholder="Powtórz swoje hasło" required="required"/>
           </div>
-          <div class="form-group">
-            <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
-            <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
-          </div>
+
           <div class="form-group form-button">
             <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
           </div>
-        </form>
+        </form:form>
       </div>
       <div class="signup-image">
         <figure><img src="/resources/images/signup-image.jpg" alt="sing up image"></figure>

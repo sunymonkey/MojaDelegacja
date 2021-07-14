@@ -27,17 +27,18 @@
 
         <div class="signin-form">
             <h2 class="form-title">Sign up</h2>
-            <form method="POST" class="register-form" id="login-form">
+            <form method="post" class="register-form">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <div class="form-group">
-                    <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                    <input type="text" name="your_name" id="your_name" placeholder="Your Name"/>
+                    <label for="inputLogin"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                    <input type="text" name="username" id="inputLogin" placeholder="Twój login" required="required" autofocus="autofocus"/>
                 </div>
                 <div class="form-group">
-                    <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
-                    <input type="password" name="your_pass" id="your_pass" placeholder="Password"/>
+                    <label for="inputPassword"><i class="zmdi zmdi-lock"></i></label>
+                    <input type="password" name="password" id="inputPassword" placeholder="Hasło" required="required"/>
                 </div>
                 <div class="form-group form-button">
-                    <input type="submit" name="signin" id="signin" class="form-submit" value="Log in"/>
+                    <input type="submit" class="form-submit" value="Login"/>
                 </div>
             </form>
         </div>

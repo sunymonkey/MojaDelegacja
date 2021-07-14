@@ -11,7 +11,7 @@ public class User extends BaseEntity {
 
     private String firstName;
     private String lastName;
-    private String login;
+    private String username;
     private String password;
     private String email;
     private boolean enabled;
@@ -22,10 +22,10 @@ public class User extends BaseEntity {
     public User() {
     }
 
-    public User(String firstName, String lastName, String login, String password, String email, boolean enabled, Set<Role> roles) {
+    public User(String firstName, String lastName, String username, String password, String email, boolean enabled, Set<Role> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.login = login;
+        this.username = username;
         this.password = password;
         this.email = email;
         this.enabled = enabled;
