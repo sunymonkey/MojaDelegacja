@@ -1,42 +1,60 @@
 package pl.sunymonkey.mojadelegacja.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-@Getter
-@Setter
+@Entity
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+public class StatementOfCosts extends BaseEntity{
 
-public class Application extends BaseEntity{
+    @OneToOne
+    @JoinColumn(name = "member_id")
+    private User delegationMember;
 
+    private String documentType;
+    private Long documentID;
     private String purpose;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fromDate;
+    @DateTimeFormat(pattern = "HH:mm")
+    private LocalTime fromTime;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate toDate;
+    @DateTimeFormat(pattern = "HH:mm")
+    private LocalTime toTime;
 
     @OneToOne
     @JoinColumn(name="countries_id")
     private CountriesDiet countriesDiet;
+
+//    @OneToOne
+//    @JoinColumn(name="meal_details_id")
+//    private DelegationMealDetails delegationMealDetails;
+    private int countBreakfast;
+    private int countDinner;
+    private int countSupper;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate exchangeRateDay;
     private String status;
 
     @OneToOne
     @JoinColumn(name = "creator_user_id")
     private User createUser;
     private LocalDateTime createDateTime;
-//    private User acceptUser;
+    //    private User acceptUser;
     private LocalDateTime acceptDateTime;
     private String description;
 

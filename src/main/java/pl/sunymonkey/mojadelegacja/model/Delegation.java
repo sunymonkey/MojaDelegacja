@@ -1,16 +1,17 @@
 package pl.sunymonkey.mojadelegacja.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
-import pl.sunymonkey.mojadelegacja.model.User;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Delegation extends Application{
 
     @ManyToOne
