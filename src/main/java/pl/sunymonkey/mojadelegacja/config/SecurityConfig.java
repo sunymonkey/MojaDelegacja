@@ -19,6 +19,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/user").hasAnyRole("USER","ADMIN")
                 .antMatchers("/applicationForm/**").hasAnyRole("USER","ADMIN")
+                .antMatchers("/delegation/**").hasAnyRole("USER","ADMIN")
                 .and().formLogin().loginPage("/login")
                 .and().logout().logoutSuccessUrl("/").permitAll();
     }
@@ -32,6 +33,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     } //bean do szyfrowania hasla usera rejestrujacego sie
-
 
 }

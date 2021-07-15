@@ -18,6 +18,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+
 public class Application extends BaseEntity{
 
     private String purpose;

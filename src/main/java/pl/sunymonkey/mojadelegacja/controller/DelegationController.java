@@ -6,60 +6,62 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import pl.sunymonkey.mojadelegacja.exceptions.ApplicationFailedException;
-import pl.sunymonkey.mojadelegacja.model.Application;
+import pl.sunymonkey.mojadelegacja.exceptions.DelegationFailedException;
 import pl.sunymonkey.mojadelegacja.model.CountriesDiet;
+import pl.sunymonkey.mojadelegacja.model.Delegation;
+import pl.sunymonkey.mojadelegacja.model.User;
 import pl.sunymonkey.mojadelegacja.model.dto.ApplicationDto;
+import pl.sunymonkey.mojadelegacja.model.dto.DelegationDto;
 import pl.sunymonkey.mojadelegacja.repository.CountriesDietRepository;
-import pl.sunymonkey.mojadelegacja.service.ApplicationService;
+import pl.sunymonkey.mojadelegacja.repository.UserRepository;
+import pl.sunymonkey.mojadelegacja.service.DelegationService;
 
 import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping("/applicationForm")
-public class ApplicationController {
+@RequestMapping("/delegation")
+public class DelegationController {
 
     private final CountriesDietRepository countriesDietRepository;
 
-    @Autowired
-    ApplicationService applicationService;
+    private final UserRepository userRepository;
 
     @Autowired
-    public ApplicationController(CountriesDietRepository countriesDietRepository) {
+    DelegationService delegationService;
+
+    @Autowired
+    public DelegationController(CountriesDietRepository countriesDietRepository, UserRepository userRepository) {
         this.countriesDietRepository = countriesDietRepository;
+        this.userRepository = userRepository;
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String formView(Model model) {
         List<CountriesDiet> countriesDiets = countriesDietRepository.findAll();
         model.addAttribute("countries", countriesDiets);
-        model.addAttribute("applicationDto", new ApplicationDto());
-        return "admin/applicationForm";
+        List<User> users = userRepository.findAll();
+        model.addAttribute("users", users);
+        model.addAttribute("delegationDto", new DelegationDto());
+        return "/delegation/commandDelegation";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String formAdd(@Valid ApplicationDto dto, BindingResult result) {
-        Application application;
+    public String fortAdd(@Valid DelegationDto dto, BindingResult result) {
+        Delegation delegation;
 
         if(!result.hasErrors()) {
             try {
-                application = applicationService.save(dto);
-            } catch (ApplicationFailedException e) {
-                return "admin/applicationForm";
+                delegation = delegationService.save(dto);
+            } catch (DelegationFailedException e) {
+                return "delegation/commandDelegation";
             }
 
-            if (application!=null) {
+            if (delegation!=null){
                 return "redirect:/admin";
             }
         }
-        return "admin/applicationForm";
+        return "delegation/commandDelegation";
     }
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(Model model) {
-        List<Application> applicationList = applicationService.findAll();
-        model.addAttribute("application", applicationList);
-        return "admin/applicationList";
-    }
 }
