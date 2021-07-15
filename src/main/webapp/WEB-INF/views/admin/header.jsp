@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
@@ -33,7 +34,7 @@
         <li class="sidebar-header">Wnioski</li>
 
         <li class="sidebar-item">
-          <a class="sidebar-link" href="ui-forms.html">
+          <a class="sidebar-link" href="<c:url value="/applicationForm/add"/>">
             <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Nowy wniosek</span>
           </a>
         </li>
