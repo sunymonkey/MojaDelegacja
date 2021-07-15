@@ -31,7 +31,7 @@ public class ApplicationController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String formView(Model model){
+    public String formView(Model model) {
         List<CountriesDiet> countriesDiets = countriesDietRepository.findAll();
         model.addAttribute("countries", countriesDiets);
         model.addAttribute("applicationDto", new ApplicationDto());
@@ -42,7 +42,7 @@ public class ApplicationController {
     public String formAdd(@Valid ApplicationDto dto, BindingResult result) {
         Application application;
 
-        if(!result.hasErrors()){
+        if(!result.hasErrors()) {
             try {
                 application =applicationService.save(dto);
             } catch (ApplicationFailedException e) {
@@ -50,9 +50,16 @@ public class ApplicationController {
             }
 
             if (application!=null) {
-                return "redirect:index";
+                return "redirect:/admin";
             }
         }
         return "admin/applicationForm";
+    }
+
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public String list(Model model) {
+        List<Application> applicationList = applicationService.findAll();
+        model.addAttribute("application", applicationList);
+        return "admin/applicationList";
     }
 }

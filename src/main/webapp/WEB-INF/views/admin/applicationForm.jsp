@@ -18,7 +18,7 @@
                             </div>
 
                             <div class="card-body">
-                                <form:textarea path="purpose" class="form-control" rows="2" placeholder="Cel podróży"/>
+                                <form:input type="text" path="purpose" class="form-control" rows="2" placeholder="Cel podróży"/>
                             </div>
 
                             <div class="card-header">
@@ -27,12 +27,12 @@
                             <div class="card-body">
                                 <form:select class="form-select mb-3" items="${countries}" path="country" itemLabel="country" itemValue="id"/>
 
-                                <select class="form-select mb-3">
-                                    <option selected>Open this select menu</option>
-                                    <option>One</option>
-                                    <option>Two</option>
-                                    <option>Three</option>
-                                </select>
+<%--                                <select class="form-select mb-3">--%>
+<%--                                    <option selected>Open this select menu</option>--%>
+<%--                                    <option>One</option>--%>
+<%--                                    <option>Two</option>--%>
+<%--                                    <option>Three</option>--%>
+<%--                                </select>--%>
                             </div>
                         </div>
 
@@ -49,7 +49,15 @@
                         <div class="card-body">
                             <form:input path="toDate" type="date"  class="form-control"/>
                         </div>
-                        <input type="submit" value="Zapisz">
+
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Szczegóły(opcionajnie)</h5>
+                        </div>
+
+                        <div class="card-body">
+                            <form:input type="text" path="description" class="form-control" rows="2" placeholder="Szczegóły"/>
+                        </div>
+                        <input class="btn btn-success" type="submit" value="Zapisz">
                     </div>
                 </div>
             </div>

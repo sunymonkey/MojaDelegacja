@@ -7,6 +7,8 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -23,11 +25,15 @@ public class Application extends BaseEntity{
     private LocalDate fromDate;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate toDate;
-    private Long country;
+
+    @OneToOne
+    @JoinColumn(name="details_id")
+    private CountriesDiet countriesDiet;
     private String status;
 //    private User createUser;
     private LocalDateTime createDateTime;
 //    private User acceptUser;
     private LocalDateTime acceptDateTime;
+    private String description;
 
 }

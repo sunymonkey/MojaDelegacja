@@ -40,7 +40,7 @@
         </li>
 
         <li class="sidebar-item">
-          <a class="sidebar-link" href="ui-forms.html">
+          <a class="sidebar-link" href="<c:url value="/applicationForm/list"/> ">
             <i class="align-middle" data-feather="list"></i> <span class="align-middle">Lista wniosków</span>
           </a>
         </li>

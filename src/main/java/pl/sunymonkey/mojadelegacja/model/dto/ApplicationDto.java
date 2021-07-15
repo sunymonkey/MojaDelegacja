@@ -22,4 +22,6 @@ public class ApplicationDto {
 
     @NotNull
     private Long country;
+
+    private String description;
 }
