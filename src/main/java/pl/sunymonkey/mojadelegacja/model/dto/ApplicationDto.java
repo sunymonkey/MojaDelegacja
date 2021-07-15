@@ -17,7 +17,7 @@ public class ApplicationDto {
     private LocalDate fromDate;
 
     @NotNull
-    @DateTimeFormat(pattern = "HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate toDate;
 
     @NotNull

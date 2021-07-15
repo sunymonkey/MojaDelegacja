@@ -21,7 +21,7 @@ public class Application extends BaseEntity{
     private String purpose;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fromDate;
-    @DateTimeFormat(pattern = "HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate toDate;
     private Long country;
     private String status;

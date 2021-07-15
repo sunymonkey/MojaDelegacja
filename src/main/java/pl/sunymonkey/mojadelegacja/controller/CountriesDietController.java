@@ -1,4 +1,4 @@
-package pl.sunymonkey.mojadelegacja.web;
+package pl.sunymonkey.mojadelegacja.controller;
 
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.sunymonkey.mojadelegacja.model.CountriesDiet;

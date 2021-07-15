@@ -24,7 +24,7 @@ public class BasicController {
     }
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
-    public String register(@Valid RegisterDto dto, BindingResult result){
+    public String register(@Valid RegisterDto dto, BindingResult result) {
         User user;
 
         if(!result.hasErrors()){
