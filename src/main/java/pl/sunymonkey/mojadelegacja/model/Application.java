@@ -28,7 +28,7 @@ public class Application extends BaseEntity{
     private LocalDate toDate;
 
     @OneToOne
-    @JoinColumn(name="details_id")
+    @JoinColumn(name="countries_id")
     private CountriesDiet countriesDiet;
     private String status;
 //    private User createUser;

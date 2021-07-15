@@ -63,9 +63,14 @@ public class DelegationServiceImpl implements DelegationService {
         if(dto.getDescription()!=null){
             delegation.setDescription(dto.getDescription());
         }
-        User user=userRepository.getById(dto.getCountry());
+        User user=userRepository.getById(dto.getMandatory());
         delegation.setMandatory(user);
 
         return delegationRepository.save(delegation);
+    }
+
+    @Override
+    public List<Delegation> findByMandatoryId(Long id) {
+        return delegationRepository.findByMandatoryId(id);
     }
 }

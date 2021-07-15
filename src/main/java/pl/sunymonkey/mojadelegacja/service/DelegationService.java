@@ -11,4 +11,6 @@ public interface DelegationService {
     List<Delegation> findAll();
     Optional<Delegation> findById(Long id);
     Delegation save(DelegationDto dto);
+
+    List<Delegation> findByMandatoryId(Long id);
 }

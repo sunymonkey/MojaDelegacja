@@ -1,6 +1,7 @@
 package pl.sunymonkey.mojadelegacja.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,10 +11,10 @@ import pl.sunymonkey.mojadelegacja.exceptions.DelegationFailedException;
 import pl.sunymonkey.mojadelegacja.model.CountriesDiet;
 import pl.sunymonkey.mojadelegacja.model.Delegation;
 import pl.sunymonkey.mojadelegacja.model.User;
-import pl.sunymonkey.mojadelegacja.model.dto.ApplicationDto;
 import pl.sunymonkey.mojadelegacja.model.dto.DelegationDto;
 import pl.sunymonkey.mojadelegacja.repository.CountriesDietRepository;
 import pl.sunymonkey.mojadelegacja.repository.UserRepository;
+import pl.sunymonkey.mojadelegacja.security.CurrentUser;
 import pl.sunymonkey.mojadelegacja.service.DelegationService;
 
 import javax.validation.Valid;
@@ -62,6 +63,13 @@ public class DelegationController {
             }
         }
         return "delegation/commandDelegation";
+    }
+
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public String list(@AuthenticationPrincipal CurrentUser currentUser, Model model) {
+        List<Delegation> delegationList = delegationService.findByMandatoryId(currentUser.getUser().getId());
+        model.addAttribute("delegation", delegationList);
+        return "delegation/delegationList";
     }
 
 }

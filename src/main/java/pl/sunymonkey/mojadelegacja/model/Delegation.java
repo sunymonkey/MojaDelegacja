@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import pl.sunymonkey.mojadelegacja.model.User;
@@ -12,7 +13,6 @@ import pl.sunymonkey.mojadelegacja.model.User;
 @Entity
 public class Delegation extends Application{
 
-    @OneToOne
-    @JoinColumn(name="mandatory_id")
+    @ManyToOne
     private User mandatory;
 }

@@ -1,6 +1,7 @@
 package pl.sunymonkey.mojadelegacja.model;
 import lombok.*;
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -20,6 +21,9 @@ public class User extends BaseEntity {
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private Set<Role> roles;
+
+    @OneToMany(mappedBy = "mandatory")
+    private List<Delegation> delegationList;
 
     public User() {
     }

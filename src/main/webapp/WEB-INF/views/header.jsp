@@ -48,13 +48,13 @@
         <li class="sidebar-header">Delegacje</li>
 
         <li class="sidebar-item">
-          <a class="sidebar-link" href="ui-forms.html">
+          <a class="sidebar-link" href="#"/>">
             <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Rozliczenie delegacji</span>
           </a>
         </li>
 
         <li class="sidebar-item">
-          <a class="sidebar-link" href="<c:url value="/delegation/add"/>">
+          <a class="sidebar-link" href="<c:url value="/delegation/list"/>">
             <i class="align-middle" data-feather="list"></i> <span class="align-middle">Polecenia delegacji</span>
           </a>
         </li>
@@ -62,7 +62,7 @@
         <li class="sidebar-header">Kierownik</li>
 
         <li class="sidebar-item">
-          <a class="sidebar-link" href="ui-forms.html">
+          <a class="sidebar-link" href="<c:url value="/delegation/add"/>">
             <i class="align-middle" data-feather="bookmark"></i> <span class="align-middle">Nowe polecenie delegacji</span>
           </a>
         </li>
