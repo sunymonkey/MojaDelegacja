@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
         Role userRole = roleRepository.findByName("ROLE_USER");
         User user = new User(dto.getFirstName(),
                              dto.getLastName(),
-                             dto.getUsername(),
+                             dto.getLogin(),
                              passwordEncoder.encode(dto.getPassword()),
                              dto.getEmail(),
                              true,

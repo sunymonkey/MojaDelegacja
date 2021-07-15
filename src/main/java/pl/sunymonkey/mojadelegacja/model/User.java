@@ -6,6 +6,8 @@ import java.util.Set;
 @Entity
 @Data
 @ToString
+//@NoArgsConstructor
+//@AllArgsConstructor
 public class User extends BaseEntity {
 
 
@@ -16,7 +18,7 @@ public class User extends BaseEntity {
     private String email;
     private boolean enabled;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.MERGE)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private Set<Role> roles;
 
     public User() {

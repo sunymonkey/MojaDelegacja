@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface UserService {
 
-    User save(User u);
-    User saveAdmin(User u);
+    User save(User user);
+    User saveAdmin(User user);
     List<User> findAll();
     User findByUsername(String username);
     User registerUser(RegisterDto dto) throws RegisterFailedException;
