@@ -55,7 +55,7 @@ public class ApplicationServiceImpl implements ApplicationService {
         CountriesDiet countriesDiet = countriesDietRepository.getById(dto.getCountry());
         application.setCountriesDiet(countriesDiet);
         application.setStatus("OPEN");
-        application.setCreateDateTime(LocalDateTime.now());
+//        application.setCreateDateTime(LocalDateTime.now());
         if(dto.getDescription()!=null){
             application.setDescription(dto.getDescription());
         }

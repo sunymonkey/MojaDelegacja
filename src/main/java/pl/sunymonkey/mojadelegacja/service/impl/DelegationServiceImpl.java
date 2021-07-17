@@ -59,7 +59,7 @@ public class DelegationServiceImpl implements DelegationService {
         CountriesDiet countriesDiet = countriesDietRepository.getById(dto.getCountry());
         delegation.setCountriesDiet(countriesDiet);
         delegation.setStatus("OPEN");
-        delegation.setCreateDateTime(LocalDateTime.now());
+//        delegation.setCreateDateTime(LocalDateTime.now());
         if(dto.getDescription()!=null){
             delegation.setDescription(dto.getDescription());
         }

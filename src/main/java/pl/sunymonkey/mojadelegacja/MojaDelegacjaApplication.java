@@ -26,11 +26,22 @@ public class MojaDelegacjaApplication {
                     r.setName("ROLE_ADMIN");
                     roleService.save(r);
                 }
-                if(roleService.findByName("ROLE_USER")==null) { //analogicznie do roli wyzej
+                if(roleService.findByName("ROLE_EMPLOYEE")==null) { //analogicznie do roli wyzej
                     Role r = new Role();
-                    r.setName("ROLE_USER");
+                    r.setName("ROLE_EMPLOYEE");
                     roleService.save(r);
                 }
+                if(roleService.findByName("ROLE_MANAGER")==null) { //analogicznie do roli wyzej
+                    Role r = new Role();
+                    r.setName("ROLE_MANAGER");
+                    roleService.save(r);
+                }
+                if(roleService.findByName("ROLE_FINANCE")==null) { //analogicznie do roli wyzej
+                    Role r = new Role();
+                    r.setName("ROLE_FINANCE");
+                    roleService.save(r);
+                }
+
                 if(userService.findByUsername("admin")==null){ //tworze admina
 
                     User user = new User();

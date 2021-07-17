@@ -1,13 +1,16 @@
 package pl.sunymonkey.mojadelegacja.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.sunymonkey.mojadelegacja.exceptions.RegisterFailedException;
 import pl.sunymonkey.mojadelegacja.model.User;
 import pl.sunymonkey.mojadelegacja.model.dto.RegisterDto;
+import pl.sunymonkey.mojadelegacja.security.CurrentUser;
 import pl.sunymonkey.mojadelegacja.service.UserService;
 
 import javax.validation.Valid;
@@ -44,6 +47,11 @@ public class BasicController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
         return "login";
+    }
+
+    @RequestMapping({"/", "/index", ""})
+    public String index() {
+        return "/application/index";
     }
 
 

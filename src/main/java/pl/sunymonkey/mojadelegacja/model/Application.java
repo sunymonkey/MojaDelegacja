@@ -33,11 +33,8 @@ public class Application extends BaseEntity{
     private String status;
 
     @OneToOne
-    @JoinColumn(name = "creator_user_id")
-    private User createUser;
-    private LocalDateTime createDateTime;
-//    private User acceptUser;
-    private LocalDateTime acceptDateTime;
+    @JoinColumn(name = "dokument_details")
+    private DokumentDetails dokumentDetails;
     private String description;
 
 }

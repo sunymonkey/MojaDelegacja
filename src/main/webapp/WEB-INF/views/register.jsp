@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -62,7 +63,7 @@
       </div>
       <div class="signup-image">
         <figure><img src="/resources/images/signup-image.jpg" alt="sing up image"></figure>
-        <a href="#" class="signup-image-link">I am already member</a>
+        <a href="<c:url value="/login"/> " class="signup-image-link">I am already member</a>
       </div>
     </div>
   </div>

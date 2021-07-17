@@ -34,13 +34,13 @@
         <li class="sidebar-header">Wnioski</li>
 
         <li class="sidebar-item">
-          <a class="sidebar-link" href="<c:url value="/applicationForm/add"/>">
+          <a class="sidebar-link" href="<c:url value="/application/add"/>">
             <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Nowy wniosek</span>
           </a>
         </li>
 
         <li class="sidebar-item">
-          <a class="sidebar-link" href="<c:url value="/applicationForm/list"/> ">
+          <a class="sidebar-link" href="<c:url value="/application/list"/> ">
             <i class="align-middle" data-feather="list"></i> <span class="align-middle">Lista wniosków</span>
           </a>
         </li>
@@ -48,7 +48,7 @@
         <li class="sidebar-header">Delegacje</li>
 
         <li class="sidebar-item">
-          <a class="sidebar-link" href="#"/>">
+          <a class="sidebar-link" href="<c:url value="/diet/add"/>">
             <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Rozliczenie delegacji</span>
           </a>
         </li>

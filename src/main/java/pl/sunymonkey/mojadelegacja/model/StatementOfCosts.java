@@ -49,13 +49,13 @@ public class StatementOfCosts extends BaseEntity{
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate exchangeRateDay;
     private String status;
-
-    @OneToOne
-    @JoinColumn(name = "creator_user_id")
-    private User createUser;
-    private LocalDateTime createDateTime;
-    //    private User acceptUser;
-    private LocalDateTime acceptDateTime;
     private String description;
 
+    @OneToOne
+    @JoinColumn(name = "delegation_cost_id")
+    private DelegationCosts delegationCosts;
+
+    @OneToOne
+    @JoinColumn(name = "dokument_details")
+    private DokumentDetails dokumentDetails;
 }

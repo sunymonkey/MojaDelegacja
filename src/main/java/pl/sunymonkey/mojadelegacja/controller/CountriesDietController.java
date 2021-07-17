@@ -31,7 +31,7 @@ public class CountriesDietController {
         List<CountriesDiet> countriesDiets = countriesDietRepository.findAll();
         model.addAttribute("countries", countriesDiets);
         model.addAttribute("diet", new Diet());
-        return "dietForm.jsp";
+        return "/WEB-INF/views/dietForm.jsp";
     }
 
     @RequestMapping(value = "/diets", method = RequestMethod.POST)

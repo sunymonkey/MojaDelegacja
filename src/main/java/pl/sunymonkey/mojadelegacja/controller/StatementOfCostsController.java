@@ -9,57 +9,57 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import pl.sunymonkey.mojadelegacja.exceptions.ApplicationFailedException;
 import pl.sunymonkey.mojadelegacja.model.Application;
 import pl.sunymonkey.mojadelegacja.model.CountriesDiet;
+import pl.sunymonkey.mojadelegacja.model.StatementOfCosts;
 import pl.sunymonkey.mojadelegacja.model.dto.ApplicationDto;
+import pl.sunymonkey.mojadelegacja.model.dto.StatementOfCostsDto;
 import pl.sunymonkey.mojadelegacja.repository.CountriesDietRepository;
-import pl.sunymonkey.mojadelegacja.service.ApplicationService;
+import pl.sunymonkey.mojadelegacja.repository.UserRepository;
+import pl.sunymonkey.mojadelegacja.service.StatementOfCoastService;
 
 import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping("/application")
-public class ApplicationController {
+@RequestMapping("/diet")
+public class StatementOfCostsController {
 
     private final CountriesDietRepository countriesDietRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    ApplicationService applicationService;
+    StatementOfCoastService statementOfCoastService;
 
-    @Autowired
-    public ApplicationController(CountriesDietRepository countriesDietRepository) {
+
+    public StatementOfCostsController(CountriesDietRepository countriesDietRepository, UserRepository userRepository) {
         this.countriesDietRepository = countriesDietRepository;
+        this.userRepository = userRepository;
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String formView(Model model) {
         List<CountriesDiet> countriesDiets = countriesDietRepository.findAll();
         model.addAttribute("countries", countriesDiets);
-        model.addAttribute("applicationDto", new ApplicationDto());
-        return "application/applicationForm";
+        model.addAttribute("statementOfCostsDto", new StatementOfCostsDto());
+        return "statementofcoast/tempform";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String formAdd(@Valid ApplicationDto dto, BindingResult result) {
-        Application application;
+    public String formAdd(@Valid StatementOfCostsDto dto, BindingResult result) {
+        StatementOfCosts statementOfCosts;
 
         if(!result.hasErrors()) {
             try {
-                application = applicationService.save(dto);
+                statementOfCosts = statementOfCoastService.save(dto);
             } catch (ApplicationFailedException e) {
-                return "application/applicationForm";
+                return "statementofcoast/tempform";
             }
 
-            if (application!=null) {
+            if (statementOfCosts!=null) {
                 return "redirect:/admin";
             }
         }
-        return "application/applicationForm";
+        return "statementofcoast/tempform";
     }
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(Model model) {
-        List<Application> applicationList = applicationService.findAll();
-        model.addAttribute("application", applicationList);
-        return "application/applicationList";
-    }
+
 }
