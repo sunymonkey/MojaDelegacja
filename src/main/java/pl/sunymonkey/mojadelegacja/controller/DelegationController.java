@@ -5,6 +5,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.sunymonkey.mojadelegacja.exceptions.DelegationFailedException;
@@ -19,6 +20,7 @@ import pl.sunymonkey.mojadelegacja.service.DelegationService;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/delegation")
@@ -48,12 +50,14 @@ public class DelegationController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String fortAdd(@Valid DelegationDto dto, BindingResult result) {
+    public String fortAdd(@Valid DelegationDto dto,
+                          @AuthenticationPrincipal CurrentUser currentUser,
+                          BindingResult result) {
         Delegation delegation;
 
         if(!result.hasErrors()) {
             try {
-                delegation = delegationService.save(dto);
+                delegation = delegationService.save(currentUser, dto);
             } catch (DelegationFailedException e) {
                 return "delegation/commandDelegation";
             }
@@ -70,6 +74,16 @@ public class DelegationController {
         List<Delegation> delegationList = delegationService.findByMandatoryId(currentUser.getUser().getId());
         model.addAttribute("delegation", delegationList);
         return "delegation/delegationList";
+    }
+
+    @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
+    public String details(@PathVariable long id,
+                               Model model) {
+        Optional<Delegation> delegation = delegationService.findById(id);
+        if(delegation.isPresent()){
+            model.addAttribute("delegation", delegation.get());
+        }
+        return "delegation/delegationDetails";
     }
 
 }

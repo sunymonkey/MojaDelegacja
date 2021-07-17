@@ -33,7 +33,10 @@
                                     <td class="d-none d-xl-table-cell"><c:out value="${application.toDate}"/></td>
                                     <td class="d-none d-xl-table-cell"><c:out value="${application.countriesDiet.country}"/></td>
                                     <td><span class="badge bg-success"><c:out value="${application.status}"/></span></td>
-                                    <th></th>
+                                    <td><div class="btn-group btn-group-sm mb-4" role="group" aria-label="Small button group">
+                                        <a href="/application/details/<c:out value="${application.id}"/>" class="btn btn-success">Szczegóły</a>
+                                        <a href="/application/change/<c:out value="${application.id}"/>" class="btn btn-success">Zmień status</a>
+                                    </div> </td>
                                 </tr>
                             </c:forEach>
                             </tbody>

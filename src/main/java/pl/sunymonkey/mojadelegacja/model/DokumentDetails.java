@@ -1,7 +1,9 @@
 package pl.sunymonkey.mojadelegacja.model;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -9,7 +11,8 @@ import javax.persistence.OneToOne;
 import java.time.LocalDateTime;
 
 @Entity
-@Data
+@Getter
+@Setter
 public class DokumentDetails extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "creator_user_id")

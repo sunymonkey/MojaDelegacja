@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Data
-@ToString
+@Getter
+@Setter
 //@NoArgsConstructor
 //@AllArgsConstructor
 public class User extends BaseEntity {
@@ -36,5 +36,10 @@ public class User extends BaseEntity {
         this.email = email;
         this.enabled = enabled;
         this.roles = roles;
+    }
+
+    @Override
+    public String toString() {
+        return lastName + " " + firstName;
     }
 }

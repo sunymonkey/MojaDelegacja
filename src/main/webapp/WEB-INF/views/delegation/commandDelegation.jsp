@@ -40,7 +40,7 @@
                                     <%--                                    <option>Two</option>--%>
                                     <%--                                    <option>Three</option>--%>
                                     <%--                                </select>--%>
-                            </div>
+<%--                            </div>--%>
                         </div>
 
                         <div class="card-header">
@@ -58,7 +58,7 @@
                         </div>
 
                         <div class="card-header">
-                            <h5 class="card-title mb-0">Szczegóły(opcionajnie)</h5>
+                            <h5 class="card-title mb-0">Szczegóły(opcjonalnie)</h5>
                         </div>
 
                         <div class="card-body">

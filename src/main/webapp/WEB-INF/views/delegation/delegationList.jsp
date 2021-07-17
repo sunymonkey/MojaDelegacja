@@ -33,7 +33,10 @@
                                     <td class="d-none d-xl-table-cell"><c:out value="${delegation.toDate}"/></td>
                                     <td class="d-none d-xl-table-cell"><c:out value="${delegation.countriesDiet.country}"/></td>
                                     <td><span class="badge bg-success"><c:out value="${delegation.status}"/></span></td>
-                                    <th></th>
+                                    <td><div class="btn-group btn-group-sm mb-4" role="group" aria-label="Small button group">
+                                        <a href="/delegation/details/<c:out value="${delegation.id}"/>" class="btn btn-success">Szczegóły</a>
+                                        <a href="/delegation/change/<c:out value="${delegation.id}"/>" class="btn btn-success">Zmień status</a>
+                                    </div> </td>
                                 </tr>
                             </c:forEach>
                             </tbody>

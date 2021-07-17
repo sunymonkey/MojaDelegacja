@@ -26,14 +26,6 @@
                             </div>
                             <div class="card-body">
                                 <form:select class="form-select mb-3" items="${countries}" path="country" itemLabel="country" itemValue="id"/>
-
-<%--                                <select class="form-select mb-3">--%>
-<%--                                    <option selected>Open this select menu</option>--%>
-<%--                                    <option>One</option>--%>
-<%--                                    <option>Two</option>--%>
-<%--                                    <option>Three</option>--%>
-<%--                                </select>--%>
-                            </div>
                         </div>
 
                         <div class="card-header">
@@ -51,7 +43,7 @@
                         </div>
 
                         <div class="card-header">
-                            <h5 class="card-title mb-0">Szczegóły(opcionajnie)</h5>
+                            <h5 class="card-title mb-0">Szczegóły(opcjonalnie)</h5>
                         </div>
 
                         <div class="card-body">
