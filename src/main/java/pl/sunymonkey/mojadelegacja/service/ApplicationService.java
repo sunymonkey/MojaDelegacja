@@ -13,4 +13,6 @@ public interface ApplicationService {
     List<Application> findAll();
     Optional<Application> findById(Long id);
     Application save(CurrentUser currentUser, ApplicationDto dto);
+
+    List<Application> findByApplicantId(Long id);
 }

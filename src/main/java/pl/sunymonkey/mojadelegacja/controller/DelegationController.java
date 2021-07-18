@@ -63,7 +63,7 @@ public class DelegationController {
             }
 
             if (delegation!=null){
-                return "redirect:/admin";
+                return "redirect:/delegation/list";
             }
         }
         return "delegation/commandDelegation";

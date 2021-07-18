@@ -173,7 +173,12 @@
               <a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>
               <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Log out</a>
+             <a class="dropdown-item">
+               <form method="post" action="/logout">
+                 <input name="${_csrf.parameterName}" value="${_csrf.token}" hidden>
+                 <input type="submit" value="Logout" class="align-middle me-1">
+               </form>
+             </a>
             </div>
           </li>
         </ul>

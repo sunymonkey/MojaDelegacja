@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import pl.sunymonkey.mojadelegacja.exceptions.ApplicationFailedException;
 import pl.sunymonkey.mojadelegacja.model.Application;
 import pl.sunymonkey.mojadelegacja.model.CountriesDiet;
@@ -56,15 +57,16 @@ public class ApplicationController {
             }
 
             if (application!=null) {
-                return "redirect:/admin";
+                return "redirect:/application/list";
             }
         }
         return "application/applicationForm";
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(Model model) {
-        List<Application> applicationList = applicationService.findAll();
+    public String list(@AuthenticationPrincipal CurrentUser currentUser,
+                       Model model) {
+        List<Application> applicationList = applicationService.findByApplicantId(currentUser.getUser().getId());
         model.addAttribute("application", applicationList);
         return "application/applicationList";
     }
@@ -78,4 +80,29 @@ public class ApplicationController {
         }
         return "application/applicationDetails";
     }
+
+    @RequestMapping(value = "/change/{id}", method = RequestMethod.GET)
+    public String accept(@PathVariable Long id,
+                         Model model) {
+        Optional<Application> application = applicationService.findById(id);
+        if(application.isPresent()) {
+            model.addAttribute("application", application.get());
+        }
+        return "application/applicationStatusChange";
+    }
+
+    @RequestMapping(value = "/change/{id}", method = RequestMethod.POST)
+    public String changeStatus(@AuthenticationPrincipal CurrentUser currentUser,
+                               @RequestParam String status,
+                               Long id) {
+        System.out.println(status);
+        Optional<Application> application = applicationService.findById(id);
+        if (application.isPresent()){
+            Application application1 = application.get();
+            application1.setStatus(status);
+            applicationService.save(currentUser, application1);
+        }
+        return "redirect:/application/list";
+    }
+
 }

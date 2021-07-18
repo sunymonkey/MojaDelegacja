@@ -65,8 +65,14 @@ public class ApplicationServiceImpl implements ApplicationService {
         if(dto.getDescription()!=null){
             application.setDescription(dto.getDescription());
         }
+        application.setApplicant(currentUser.getUser());
         application.setDokumentDetails(dokumentDetailsService.newDokument(currentUser));
 
         return applicationRepository.save(application);
+    }
+
+    @Override
+    public List<Application> findByApplicantId(Long id) {
+        return applicationRepository.findByApplicantId(id);
     }
 }

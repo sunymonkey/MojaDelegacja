@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,7 +19,6 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-
 public class Application extends BaseEntity{
 
     private String purpose;
@@ -36,5 +36,8 @@ public class Application extends BaseEntity{
     @JoinColumn(name = "dokument_details")
     private DokumentDetails dokumentDetails;
     private String description;
+
+    @ManyToOne
+    private User applicant;
 
 }
