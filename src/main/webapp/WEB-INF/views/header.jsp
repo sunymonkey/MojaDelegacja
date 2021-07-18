@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
@@ -59,6 +60,9 @@
           </a>
         </li>
 
+        <sec:authorize access="hasRole('ADMIN')">
+
+
         <li class="sidebar-header">Kierownik</li>
 
         <li class="sidebar-item">
@@ -74,10 +78,11 @@
         </li>
 
         <li class="sidebar-item">
-          <a class="sidebar-link" href="ui-forms.html">
+          <a class="sidebar-link" href="<c:url value="/manager/employeeList"/>">
             <i class="align-middle" data-feather="list"></i> <span class="align-middle">Lista pracowników</span>
           </a>
         </li>
+        </sec:authorize>
       </ul>
 
 

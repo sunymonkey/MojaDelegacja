@@ -1,6 +1,7 @@
 package pl.sunymonkey.mojadelegacja.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +15,7 @@ import pl.sunymonkey.mojadelegacja.model.dto.ApplicationDto;
 import pl.sunymonkey.mojadelegacja.model.dto.StatementOfCostsDto;
 import pl.sunymonkey.mojadelegacja.repository.CountriesDietRepository;
 import pl.sunymonkey.mojadelegacja.repository.UserRepository;
+import pl.sunymonkey.mojadelegacja.security.CurrentUser;
 import pl.sunymonkey.mojadelegacja.service.StatementOfCoastService;
 
 import javax.validation.Valid;
@@ -44,12 +46,14 @@ public class StatementOfCostsController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String formAdd(@Valid StatementOfCostsDto dto, BindingResult result) {
+    public String formAdd(@Valid StatementOfCostsDto dto,
+                          @AuthenticationPrincipal CurrentUser currentUser,
+                          BindingResult result) {
         StatementOfCosts statementOfCosts;
 
         if(!result.hasErrors()) {
             try {
-                statementOfCosts = statementOfCoastService.save(dto);
+                statementOfCosts = statementOfCoastService.save(currentUser, dto);
             } catch (ApplicationFailedException e) {
                 return "statementofcoast/tempform";
             }

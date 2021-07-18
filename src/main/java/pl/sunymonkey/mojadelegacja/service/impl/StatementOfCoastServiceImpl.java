@@ -10,7 +10,9 @@ import pl.sunymonkey.mojadelegacja.repository.CountriesDietRepository;
 import pl.sunymonkey.mojadelegacja.repository.DelegationCostsRepository;
 import pl.sunymonkey.mojadelegacja.repository.StatementOfCostsRepository;
 import pl.sunymonkey.mojadelegacja.repository.UserRepository;
+import pl.sunymonkey.mojadelegacja.security.CurrentUser;
 import pl.sunymonkey.mojadelegacja.service.DelegationCostsService;
+import pl.sunymonkey.mojadelegacja.service.DokumentDetailsService;
 import pl.sunymonkey.mojadelegacja.service.StatementOfCoastService;
 
 import java.time.LocalDateTime;
@@ -24,6 +26,9 @@ public class StatementOfCoastServiceImpl implements StatementOfCoastService {
 
     @Autowired
     DelegationCostsService delegationCostsService;
+
+    @Autowired
+    DokumentDetailsService dokumentDetailsService;
 
     private final UserRepository userRepository;
 
@@ -39,7 +44,7 @@ public class StatementOfCoastServiceImpl implements StatementOfCoastService {
     }
 
     @Override
-    public StatementOfCosts save(StatementOfCostsDto dto) {
+    public StatementOfCosts save(CurrentUser currentUser, StatementOfCostsDto dto) {
         if(dto.getCountry()==null || dto.getPurpose()==null
                 || dto.getFromDate()==null || dto.getToDate()==null || dto.getFromTime()==null
                 || dto.getToTime()==null || dto.getExchangeRateDay()==null){
@@ -60,8 +65,11 @@ public class StatementOfCoastServiceImpl implements StatementOfCoastService {
         statementOfCosts.setCountBreakfast(dto.getCountBreakfast());
         statementOfCosts.setCountDinner(dto.getCountDinner());
         statementOfCosts.setCountSupper(dto.getCountSupper());
+        statementOfCosts.setDelegationMember(currentUser.getUser());
 
         statementOfCosts.setDelegationCosts(delegationCostsService.calculateAndSave(statementOfCosts));
+
+        statementOfCosts.setDokumentDetails(dokumentDetailsService.newDokument(currentUser));
 
         return statementOfCostsRepository.save(statementOfCosts);
     }
