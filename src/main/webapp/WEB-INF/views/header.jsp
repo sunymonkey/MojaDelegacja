@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
@@ -27,7 +28,7 @@
 <div class="wrapper">
   <nav id="sidebar" class="sidebar js-sidebar">
     <div class="sidebar-content js-simplebar">
-      <a class="sidebar-brand" href="index.html">
+      <a class="sidebar-brand" href="<c:url value="/"/>">
         <span class="align-middle">Moja delegacja</span>
       </a>
 
@@ -175,7 +176,7 @@
 
             <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
               <!--                <img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall" /> -->
-              <span class="text-dark">Charles Hall</span>
+              <span class="text-dark"><security:authentication property="principal.username" /></span>
             </a>
             <div class="dropdown-menu dropdown-menu-end">
               <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>

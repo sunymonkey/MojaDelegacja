@@ -15,11 +15,11 @@
                         <table class="table table-hover my-0">
                             <thead>
                             <tr>
-                                <th class="d-none d-xl-table-cell">id</th>
-                                <th class="d-none d-xl-table-cell">purpose</th>
-                                <th class="d-none d-xl-table-cell">from date</th>
-                                <th class="d-none d-xl-table-cell">to date</th>
-                                <th class="d-none d-xl-table-cell">gdzie</th>
+                                <th class="d-none d-xl-table-cell">Id</th>
+                                <th class="d-none d-xl-table-cell">Cel</th>
+                                <th class="d-none d-xl-table-cell">Od(data)</th>
+                                <th class="d-none d-xl-table-cell">Do(data)</th>
+                                <th class="d-none d-xl-table-cell">Miejsce delegacji</th>
                                 <th>Status</th>
                                 <th class="d-none d-md-table-cell">Opcje</th>
                             </tr>
@@ -32,7 +32,7 @@
                                     <td class="d-none d-xl-table-cell"><c:out value="${delegation.fromDate}"/></td>
                                     <td class="d-none d-xl-table-cell"><c:out value="${delegation.toDate}"/></td>
                                     <td class="d-none d-xl-table-cell"><c:out value="${delegation.countriesDiet.country}"/></td>
-                                    <td><span class="badge bg-success"><c:out value="${delegation.status}"/></span></td>
+                                    <td><span class="badge bg-success"><c:out value="${delegation.dokumentDetails.status.status}"/></span></td>
                                     <td><div class="btn-group btn-group-sm mb-4" role="group" aria-label="Small button group">
                                         <a href="/delegation/details/<c:out value="${delegation.id}"/>" class="btn btn-success">Szczegóły</a>
                                         <a href="/delegation/change/<c:out value="${delegation.id}"/>" class="btn btn-success">Zmień status</a>

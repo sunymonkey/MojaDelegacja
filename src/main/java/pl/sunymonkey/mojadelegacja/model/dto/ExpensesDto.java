@@ -20,12 +20,12 @@ public class ExpensesDto {
     private double amount;
 
     @NotNull
-    private String currency;
+    private Long currency;
 
     private String description;
 
     @NotNull
-    private String paymentMethod;
+    private Long paymentMethod;
 
     private Long type;
 

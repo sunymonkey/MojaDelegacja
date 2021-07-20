@@ -11,75 +11,78 @@
 
         <form:form method="post" modelAttribute="expensesDao" enctype="multipart/form-data">
         <div class="row">
-            <div class="col-12">
+            <div class="col-6">
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-header">
-                            <h5 class="card-title mb-0">Data wydatku</h5>
-                        </div>
-
-                        <div class="card-body">
-                            <form:input type="date" path="dateExpenses" class="form-control" rows="2" placeholder="Cel podróży"/>
-                        </div>
-
-                        <div class="card-header">
-                            <h5 class="card-title mb-0">Rodzaj wydatku</h5>
-                        </div>
-                        <div class="card-body">
-                            <form:select class="form-select mb-3" items="${typeOfExpenses}" path="type" itemLabel="type" itemValue="id"/>
-                        </div>
-
-                        <div class="card-header">
-                            <h5 class="card-title mb-0">Liczba (np. kilometrów)</h5>
-                        </div>
-                        <div class="card-body">
-                            <form:input path="kmOrNumber" type="number" class="form-control"/>
-                        </div>
-
-                        <div class="card-header">
-                            <h5 class="card-title mb-0">Kwota</h5>
-                        </div>
-                        <div class="card-body">
-                            <form:input path="amount" type="number"  class="form-control"/>
-                        </div>
-
-                        <div class="card-header">
-                            <h5 class="card-title mb-0">Waluta</h5>
-                        </div>
-                        <div class="card-body">
-                            <form:input path="currency" type="text"  class="form-control"/>
-                        </div>
-
-                        <div class="card-header">
-                            <h5 class="card-title mb-0">Rodzaj płatności</h5>
-                        </div>
-                        <div class="card-body">
-                            <form:input path="paymentMethod" type="text"  class="form-control"/>
-                        </div>
-
-                        <div class="card-header">
-                            <h5 class="card-title mb-0">Opis wydatku</h5>
-                        </div>
-
-                        <div class="card-body">
-                            <form:input type="text" path="description" class="form-control" rows="2" placeholder="Szczegóły"/>
-                        </div>
-
-                        <div class="card-header">
-                            <h5 class="card-title mb-0">Załącznik</h5>
-                        </div>
-
-                        <div class="card-body">
-                            <form:input path="dbFile" type="file"/>
-                        </div>
-                        
-                        <input type="hidden" value="<c:out value="${statementOfCoast}"/>" name="id">
-                        
-                        <input class="btn btn-success" type="submit" value="Zapisz">
+                        <h5 class="card-title mb-0">Data wydatku</h5>
+                    </div>
+                    <div class="card-body">
+                        <form:input type="date" path="dateExpenses" class="form-control" rows="2" placeholder="Cel podróży"/>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Rodzaj wydatku</h5>
+                    </div>
+                    <div class="card-body">
+                        <form:select class="form-select mb-3" items="${typeOfExpenses}" path="type" itemLabel="type" itemValue="id"/>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Waluta</h5>
+                    </div>
+                    <div class="card-body">
+                        <form:select path="currency" items="${currencyList}" itemValue="id" itemLabel="currency" class="form-select mb-3"/>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Rodzaj płatności</h5>
+                    </div>
+                    <div class="card-body">
+                        <form:select class="form-select mb-3" items="${paymentMethodList}" path="paymentMethod" itemLabel="method" itemValue="id"/>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Kwota</h5>
+                    </div>
+                    <div class="card-body">
+                        <form:input path="amount" type="number"  class="form-control"/>
                     </div>
                 </div>
             </div>
-            </form:form>
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Liczba (np. kilometrów)</h5>
+                    </div>
+                    <div class="card-body">
+                        <form:input path="kmOrNumber" type="number" class="form-control"/>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Opis wydatku</h5>
+                    </div>
+                    <div class="card-body">
+                        <form:textarea path="description" class="form-control" rows="2" placeholder="Szczegóły"/>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Załącznik</h5>
+                    </div>
+                    <div class="card-body">
+                        <form:input path="dbFile" type="file"/>
+                        <input type="hidden" value="<c:out value="${statementOfCoast}"/>" name="id">
+                    </div>
+                </div>
+            </div>
+        </div>
+            <input class="btn btn-success" type="submit" value="Zapisz">
+        </form:form>
 
     </div>
 </main>

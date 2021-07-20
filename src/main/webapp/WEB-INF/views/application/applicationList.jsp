@@ -15,11 +15,11 @@
                         <table class="table table-hover my-0">
                             <thead>
                             <tr>
-                                <th class="d-none d-xl-table-cell">id</th>
-                                <th class="d-none d-xl-table-cell">purpose</th>
-                                <th class="d-none d-xl-table-cell">from date</th>
-                                <th class="d-none d-xl-table-cell">to date</th>
-                                <th class="d-none d-xl-table-cell">gdzie</th>
+                                <th class="d-none d-xl-table-cell">Id</th>
+                                <th class="d-none d-xl-table-cell">Cel</th>
+                                <th class="d-none d-xl-table-cell">Od(data)</th>
+                                <th class="d-none d-xl-table-cell">Do(data)</th>
+                                <th class="d-none d-xl-table-cell">Miejsce delegacji</th>
                                 <th>Status</th>
                                 <th class="d-none d-md-table-cell">Opcje</th>
                             </tr>

@@ -9,17 +9,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.sunymonkey.mojadelegacja.exceptions.ApplicationFailedException;
 import pl.sunymonkey.mojadelegacja.exceptions.ExpensesFailedException;
 import pl.sunymonkey.mojadelegacja.exceptions.FileStorageException;
 import pl.sunymonkey.mojadelegacja.model.*;
 import pl.sunymonkey.mojadelegacja.model.dto.ExpensesDto;
 import pl.sunymonkey.mojadelegacja.model.dto.StatementOfCostsDto;
-import pl.sunymonkey.mojadelegacja.repository.CountriesDietRepository;
-import pl.sunymonkey.mojadelegacja.repository.StatementOfCostsRepository;
-import pl.sunymonkey.mojadelegacja.repository.TypeOfExpensesRepository;
-import pl.sunymonkey.mojadelegacja.repository.UserRepository;
+import pl.sunymonkey.mojadelegacja.repository.*;
 import pl.sunymonkey.mojadelegacja.security.CurrentUser;
 import pl.sunymonkey.mojadelegacja.service.DBFileStorageService;
 import pl.sunymonkey.mojadelegacja.service.ExpensesService;
@@ -36,6 +32,8 @@ public class StatementOfCostsController {
     private final CountriesDietRepository countriesDietRepository;
     private final UserRepository userRepository;
     private final StatementOfCostsRepository statementOfCostsRepository;
+    private final PaymentMethodRepository paymentMethodRepository;
+    private final CurrencyRepository currencyRepository;
 
     @Autowired
     StatementOfCoastService statementOfCoastService;
@@ -49,10 +47,12 @@ public class StatementOfCostsController {
     private final TypeOfExpensesRepository typeOfExpensesRepository;
 
 
-    public StatementOfCostsController(CountriesDietRepository countriesDietRepository, UserRepository userRepository, StatementOfCostsRepository statementOfCostsRepository, TypeOfExpensesRepository typeOfExpensesRepository) {
+    public StatementOfCostsController(CountriesDietRepository countriesDietRepository, UserRepository userRepository, StatementOfCostsRepository statementOfCostsRepository, PaymentMethodRepository paymentMethodRepository, CurrencyRepository currencyRepository, TypeOfExpensesRepository typeOfExpensesRepository) {
         this.countriesDietRepository = countriesDietRepository;
         this.userRepository = userRepository;
         this.statementOfCostsRepository = statementOfCostsRepository;
+        this.paymentMethodRepository = paymentMethodRepository;
+        this.currencyRepository = currencyRepository;
         this.typeOfExpensesRepository = typeOfExpensesRepository;
     }
 
@@ -102,6 +102,10 @@ public class StatementOfCostsController {
         model.addAttribute("expensesDao", new ExpensesDto());
         model.addAttribute("typeOfExpenses", typeOfExpenses);
         model.addAttribute("statementOfCoast", id);
+        List<PaymentMethod> paymentMethodList = paymentMethodRepository.findAll();
+        model.addAttribute("paymentMethodList", paymentMethodList);
+        List<Currency> currencyList = currencyRepository.findAll();
+        model.addAttribute("currencyList", currencyList);
         return "statementOfCoast/expensesAdd";
     }
 

@@ -4,14 +4,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import pl.sunymonkey.mojadelegacja.model.Role;
-import pl.sunymonkey.mojadelegacja.model.Status;
-import pl.sunymonkey.mojadelegacja.model.TypeOfExpenses;
-import pl.sunymonkey.mojadelegacja.model.User;
-import pl.sunymonkey.mojadelegacja.service.StatusService;
-import pl.sunymonkey.mojadelegacja.service.TypoOfExpensesService;
-import pl.sunymonkey.mojadelegacja.service.UserService;
-import pl.sunymonkey.mojadelegacja.service.RoleService;
+import pl.sunymonkey.mojadelegacja.model.*;
+import pl.sunymonkey.mojadelegacja.service.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +22,9 @@ public class MojaDelegacjaApplication {
     CommandLineRunner init(UserService userService,
                            RoleService roleService,
                            TypoOfExpensesService typoOfExpensesService,
-                           StatusService statusService) { //funkcja ktora uruchamia sie podczas startu aplikacji (za kazdym razem)
+                           StatusService statusService,
+                           PaymentMethodService paymentMethodService,
+                           CurrencyService currencyService) { //funkcja ktora uruchamia sie podczas startu aplikacji (za kazdym razem)
             return (args) -> {
 
                 if(roleService.findByName("ROLE_ADMIN")==null) { //patrzymy czy mamy role admin i jesli nie to ja tworzymy
@@ -98,6 +94,38 @@ public class MojaDelegacjaApplication {
                     }
                 }
 
+                List<String> paymentMethodList = new ArrayList<>();
+                paymentMethodList.add("Karta firmowa");
+                paymentMethodList.add("Przelew");
+                paymentMethodList.add("Pracownik");
+
+                for (int i = 0; i < paymentMethodList.size(); i++) {
+                    if(paymentMethodService.findByMethod(paymentMethodList.get(i))==null) {
+                        PaymentMethod paymentMethod = new PaymentMethod();
+                        paymentMethod.setMethod(paymentMethodList.get(i));
+                        paymentMethodService.save(paymentMethod);
+                    }
+                }
+
+                List<String> currencyList = new ArrayList<>();
+                currencyList.add("AUD");
+                currencyList.add("CAD");
+                currencyList.add("CHF");
+                currencyList.add("DKK");
+                currencyList.add("EUR");
+                currencyList.add("GBP");
+                currencyList.add("JPY");
+                currencyList.add("NOK");
+                currencyList.add("SEK");
+                currencyList.add("USD");
+
+                for (int i = 0; i < currencyList.size(); i++) {
+                    if(currencyService.findByCurrency(currencyList.get(i))==null) {
+                        Currency currency = new Currency();
+                        currency.setCurrency(currencyList.get(i));
+                        currencyService.save(currency);
+                    }
+                }
 
 
 

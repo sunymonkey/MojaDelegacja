@@ -18,10 +18,15 @@ public class Expenses extends BaseEntity{
 
     private Long kmOrNumber;
     private double amount;
-    private String currency;
+
+    @ManyToOne
+    @JoinColumn(name = "currency_id")
+    private Currency currency;
     private String description;
 
-    private String paymentMethod;
+    @ManyToOne
+    @JoinColumn(name = "payment_method")
+    private PaymentMethod paymentMethod;
 
     @OneToOne
     @JoinColumn(name = "files_id")

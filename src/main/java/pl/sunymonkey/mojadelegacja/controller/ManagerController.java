@@ -23,8 +23,7 @@ public class ManagerController {
     @RequestMapping("/employeeList")
     public String employeeList(Model model){
         List<User> users = userRepository.allEmployee("ROLE_EMPLOYEE");
-
-
+        model.addAttribute("users", users);
         return "/manager/employeeList";
     }
 }

@@ -38,7 +38,7 @@
                         <form:input path="fromDate" type="date" class="form-control"/>
                         <form:errors path="fromDate"/>
                         <c:if test="${not empty error}">
-                            <input type="text" value="${error}" class="label-has-error">
+                            <div class="alert alert-success">${error}</div>
                         </c:if>
                     </div>
                 </div>

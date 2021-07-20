@@ -23,15 +23,6 @@
                 </div>
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title mb0">Cel podróży</h5>
-                    </div>
-                    <div class="card-body">
-                        <form:input type="text" path="purpose" class="form-control" rows="2" placeholder="Cel podróży"/>
-                        <form:errors path="purpose"/>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">
                         <h5 class="card-title mb-0">Kraj delegacji</h5>
                     </div>
                     <div class="card-body">
@@ -47,7 +38,7 @@
                         <form:input path="fromDate" type="date" class="form-control"/>
                         <form:errors path="fromDate"/>
                         <c:if test="${not empty error}">
-                            <input type="text" value="${error}" class="label-has-error">
+                            <div class="alert alert-success">${error}</div>
                         </c:if>
                     </div>
                 </div>
@@ -62,6 +53,15 @@
                 </div>
             </div>
             <div class="col-6 h-100">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb0">Cel podróży</h5>
+                    </div>
+                    <div class="card-body">
+                        <form:input type="text" path="purpose" class="form-control" rows="2" placeholder="Cel podróży"/>
+                        <form:errors path="purpose"/>
+                    </div>
+                </div>
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title mb-0">Szczegóły(opcjonalnie)</h5>

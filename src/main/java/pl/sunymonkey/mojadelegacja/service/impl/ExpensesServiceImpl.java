@@ -2,12 +2,11 @@ package pl.sunymonkey.mojadelegacja.service.impl;
 
 import org.springframework.stereotype.Service;
 import pl.sunymonkey.mojadelegacja.exceptions.ExpensesFailedException;
-import pl.sunymonkey.mojadelegacja.model.DBFile;
-import pl.sunymonkey.mojadelegacja.model.Expenses;
-import pl.sunymonkey.mojadelegacja.model.StatementOfCosts;
-import pl.sunymonkey.mojadelegacja.model.TypeOfExpenses;
+import pl.sunymonkey.mojadelegacja.model.*;
 import pl.sunymonkey.mojadelegacja.model.dto.ExpensesDto;
+import pl.sunymonkey.mojadelegacja.repository.CurrencyRepository;
 import pl.sunymonkey.mojadelegacja.repository.ExpensesRepository;
+import pl.sunymonkey.mojadelegacja.repository.PaymentMethodRepository;
 import pl.sunymonkey.mojadelegacja.repository.TypeOfExpensesRepository;
 import pl.sunymonkey.mojadelegacja.service.ExpensesService;
 
@@ -19,10 +18,16 @@ public class ExpensesServiceImpl implements ExpensesService {
 
     private final ExpensesRepository expensesRepository;
 
+    private final PaymentMethodRepository paymentMethodRepository;
+
+    private final CurrencyRepository currencyRepository;
+
     private final TypeOfExpensesRepository typeOfExpensesRepository;
 
-    public ExpensesServiceImpl(ExpensesRepository expensesRepository, TypeOfExpensesRepository typeOfExpensesRepository) {
+    public ExpensesServiceImpl(ExpensesRepository expensesRepository, PaymentMethodRepository paymentMethodRepository, CurrencyRepository currencyRepository, TypeOfExpensesRepository typeOfExpensesRepository) {
         this.expensesRepository = expensesRepository;
+        this.paymentMethodRepository = paymentMethodRepository;
+        this.currencyRepository = currencyRepository;
         this.typeOfExpensesRepository = typeOfExpensesRepository;
     }
 
@@ -41,14 +46,16 @@ public class ExpensesServiceImpl implements ExpensesService {
         Expenses expenses = new Expenses();
         expenses.setDateExpenses(dto.getDateExpenses());
         expenses.setAmount(dto.getAmount());
-        expenses.setCurrency(dto.getCurrency());
+        Currency currency = currencyRepository.getById(dto.getCurrency());
+        expenses.setCurrency(currency);
         expenses.setDescription(dto.getDescription());
         TypeOfExpenses typeOfExpenses = typeOfExpensesRepository.getById(dto.getType());
         Set<TypeOfExpenses> typeSet = new HashSet<>();
         typeSet.add(typeOfExpenses);
         expenses.setType(typeSet);
         expenses.setKmOrNumber(dto.getKmOrNumber());
-        expenses.setPaymentMethod(dto.getPaymentMethod());
+        PaymentMethod paymentMethod = paymentMethodRepository.getById(dto.getPaymentMethod());
+        expenses.setPaymentMethod(paymentMethod);
         expenses.setStatementOfCosts(statementOfCoast);
         expenses.setFiles(dbFile);
 
