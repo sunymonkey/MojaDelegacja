@@ -5,21 +5,29 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.sunymonkey.mojadelegacja.exceptions.ApplicationFailedException;
-import pl.sunymonkey.mojadelegacja.model.Application;
-import pl.sunymonkey.mojadelegacja.model.CountriesDiet;
-import pl.sunymonkey.mojadelegacja.model.StatementOfCosts;
-import pl.sunymonkey.mojadelegacja.model.dto.ApplicationDto;
+import pl.sunymonkey.mojadelegacja.exceptions.ExpensesFailedException;
+import pl.sunymonkey.mojadelegacja.exceptions.FileStorageException;
+import pl.sunymonkey.mojadelegacja.model.*;
+import pl.sunymonkey.mojadelegacja.model.dto.ExpensesDto;
 import pl.sunymonkey.mojadelegacja.model.dto.StatementOfCostsDto;
 import pl.sunymonkey.mojadelegacja.repository.CountriesDietRepository;
+import pl.sunymonkey.mojadelegacja.repository.StatementOfCostsRepository;
+import pl.sunymonkey.mojadelegacja.repository.TypeOfExpensesRepository;
 import pl.sunymonkey.mojadelegacja.repository.UserRepository;
 import pl.sunymonkey.mojadelegacja.security.CurrentUser;
+import pl.sunymonkey.mojadelegacja.service.DBFileStorageService;
+import pl.sunymonkey.mojadelegacja.service.ExpensesService;
 import pl.sunymonkey.mojadelegacja.service.StatementOfCoastService;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/diet")
@@ -27,14 +35,25 @@ public class StatementOfCostsController {
 
     private final CountriesDietRepository countriesDietRepository;
     private final UserRepository userRepository;
+    private final StatementOfCostsRepository statementOfCostsRepository;
 
     @Autowired
     StatementOfCoastService statementOfCoastService;
 
+    @Autowired
+    DBFileStorageService dbFileStorageService;
 
-    public StatementOfCostsController(CountriesDietRepository countriesDietRepository, UserRepository userRepository) {
+    @Autowired
+    ExpensesService expensesService;
+
+    private final TypeOfExpensesRepository typeOfExpensesRepository;
+
+
+    public StatementOfCostsController(CountriesDietRepository countriesDietRepository, UserRepository userRepository, StatementOfCostsRepository statementOfCostsRepository, TypeOfExpensesRepository typeOfExpensesRepository) {
         this.countriesDietRepository = countriesDietRepository;
         this.userRepository = userRepository;
+        this.statementOfCostsRepository = statementOfCostsRepository;
+        this.typeOfExpensesRepository = typeOfExpensesRepository;
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
@@ -42,7 +61,7 @@ public class StatementOfCostsController {
         List<CountriesDiet> countriesDiets = countriesDietRepository.findAll();
         model.addAttribute("countries", countriesDiets);
         model.addAttribute("statementOfCostsDto", new StatementOfCostsDto());
-        return "statementofcoast/tempform";
+        return "statementOfCoast/tempform";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -55,15 +74,69 @@ public class StatementOfCostsController {
             try {
                 statementOfCosts = statementOfCoastService.save(currentUser, dto);
             } catch (ApplicationFailedException e) {
-                return "statementofcoast/tempform";
+                return "statementOfCoast/tempform";
             }
 
             if (statementOfCosts!=null) {
-                return "redirect:/admin";
+                return "redirect:/diet/details/" + statementOfCosts.getId();
             }
         }
-        return "statementofcoast/tempform";
+        return "statementOfCoast/tempform";
     }
 
+    @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
+    public String detailStatementOfCosts(@PathVariable Long id,
+                                         Model model){
+        Optional<StatementOfCosts> statementOfCosts = statementOfCostsRepository.findById(id);
+        if(statementOfCosts.isPresent()){
+            model.addAttribute("statementOfCosts", statementOfCosts.get());
+        }
 
+        return "statementOfCoast/details";
+    }
+
+    @RequestMapping("/expenses/add/{id}")
+    public String expenses(@PathVariable Long id,
+                           Model model) {
+        List<TypeOfExpenses> typeOfExpenses = typeOfExpensesRepository.findAll();
+        model.addAttribute("expensesDao", new ExpensesDto());
+        model.addAttribute("typeOfExpenses", typeOfExpenses);
+        model.addAttribute("statementOfCoast", id);
+        return "statementOfCoast/expensesAdd";
+    }
+
+    @RequestMapping(value = "/expenses/add/{id}", method = RequestMethod.POST)
+    public String expensesAdd(@Valid ExpensesDto dto,
+                              BindingResult result,
+                              @RequestParam long id) throws FileStorageException {
+        Expenses expenses;
+
+        DBFile dbFile = new DBFile();
+        dbFile = dbFileStorageService.storeFile(dto.getDbFile());
+        Optional<StatementOfCosts> byId = statementOfCostsRepository.findById(id);
+        StatementOfCosts statementOfCosts = new StatementOfCosts();
+        if(byId.isPresent()) {
+            statementOfCosts = byId.get();
+        }
+
+        if(!result.hasErrors()) {
+            try {
+                expenses = expensesService.save(dto, dbFile,statementOfCosts);
+            } catch (ExpensesFailedException e) {
+                return "statementOfCoast/expensesAdd";
+            }
+
+            if(expenses!=null) {
+                return "redirect:/";
+            }
+        }
+        return "statementOfCoast/expensesAdd";
+    }
+
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public String list(Model model){
+        List<StatementOfCosts> all = statementOfCostsRepository.findAll();
+        model.addAttribute("statementOfCosts", all);
+        return "statementOfCoast/list";
+    }
 }

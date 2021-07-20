@@ -5,13 +5,13 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.sunymonkey.mojadelegacja.exceptions.ApplicationFailedException;
 import pl.sunymonkey.mojadelegacja.model.Application;
-import pl.sunymonkey.mojadelegacja.model.CountriesDiet;
 import pl.sunymonkey.mojadelegacja.model.dto.ApplicationDto;
 import pl.sunymonkey.mojadelegacja.repository.CountriesDietRepository;
 import pl.sunymonkey.mojadelegacja.security.CurrentUser;
@@ -37,17 +37,18 @@ public class ApplicationController {
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String formView(Model model) {
-        List<CountriesDiet> countriesDiets = countriesDietRepository.findAll();
-        model.addAttribute("countries", countriesDiets);
+        model.addAttribute("countries", countriesDietRepository.findAll());
         model.addAttribute("applicationDto", new ApplicationDto());
         return "application/applicationForm";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String formAdd(@Valid ApplicationDto dto,
+                          BindingResult result,
                           @AuthenticationPrincipal CurrentUser currentUser,
-                          BindingResult result) {
+                          Model model) {
         Application application;
+        ObjectError globalError = result.getGlobalError();
 
         if(!result.hasErrors()) {
             try {
@@ -60,6 +61,8 @@ public class ApplicationController {
                 return "redirect:/application/list";
             }
         }
+        model.addAttribute("countries", countriesDietRepository.findAll());
+        model.addAttribute("error", globalError.getDefaultMessage());
         return "application/applicationForm";
     }
 
@@ -99,7 +102,6 @@ public class ApplicationController {
         Optional<Application> application = applicationService.findById(id);
         if (application.isPresent()){
             Application application1 = application.get();
-            application1.setStatus(status);
             applicationService.save(currentUser, application1);
         }
         return "redirect:/application/list";

@@ -25,7 +25,6 @@ public class Delegation extends BaseEntity{
     @OneToOne
     @JoinColumn(name="countries_id")
     private CountriesDiet countriesDiet;
-    private String status;
 
     @OneToOne
     @JoinColumn(name = "dokument_details")

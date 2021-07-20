@@ -60,7 +60,6 @@ public class StatementOfCoastServiceImpl implements StatementOfCoastService {
         CountriesDiet countriesDiet = countriesDietRepository.getById(dto.getCountry());
         statementOfCosts.setCountriesDiet(countriesDiet);
         statementOfCosts.setStatus("OPEN");
-//        statementOfCosts.setCreateDateTime(LocalDateTime.now());
         statementOfCosts.setExchangeRateDay(dto.getExchangeRateDay());
         statementOfCosts.setCountBreakfast(dto.getCountBreakfast());
         statementOfCosts.setCountDinner(dto.getCountDinner());

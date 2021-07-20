@@ -77,6 +77,12 @@
           </a>
         </li>
 
+          <li class="sidebar-item">
+            <a class="sidebar-link" href="<c:url value="/diet/list"/>">
+              <i class="align-middle" data-feather="list"></i> <span class="align-middle">Lista rozliczeń delegacji</span>
+            </a>
+          </li>
+
         <li class="sidebar-item">
           <a class="sidebar-link" href="<c:url value="/manager/employeeList"/>">
             <i class="align-middle" data-feather="list"></i> <span class="align-middle">Lista pracowników</span>

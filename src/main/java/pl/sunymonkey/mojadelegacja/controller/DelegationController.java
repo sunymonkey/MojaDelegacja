@@ -43,7 +43,7 @@ public class DelegationController {
     public String formView(Model model) {
         List<CountriesDiet> countriesDiets = countriesDietRepository.findAll();
         model.addAttribute("countries", countriesDiets);
-        List<User> users = userRepository.findAll();
+        List<User> users = userRepository.allEmployee("ROLE_EMPLOYEE");
         model.addAttribute("users", users);
         model.addAttribute("delegationDto", new DelegationDto());
         return "/delegation/commandDelegation";

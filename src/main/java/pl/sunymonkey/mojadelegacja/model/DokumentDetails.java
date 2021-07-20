@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import java.time.LocalDateTime;
 
@@ -22,4 +23,8 @@ public class DokumentDetails extends BaseEntity {
     @JoinColumn(name = "accept_user_id")
     private User acceptUser;
     private LocalDateTime acceptDateTime;
+
+    @ManyToOne
+    @JoinColumn(name = "status_id")
+    private Status status;
 }

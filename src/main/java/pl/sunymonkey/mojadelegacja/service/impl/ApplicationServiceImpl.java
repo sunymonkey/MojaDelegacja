@@ -61,13 +61,11 @@ public class ApplicationServiceImpl implements ApplicationService {
         application.setToDate(dto.getToDate());
         CountriesDiet countriesDiet = countriesDietRepository.getById(dto.getCountry());
         application.setCountriesDiet(countriesDiet);
-        application.setStatus("OPEN");
         if(dto.getDescription()!=null){
             application.setDescription(dto.getDescription());
         }
         application.setApplicant(currentUser.getUser());
         application.setDokumentDetails(dokumentDetailsService.newDokument(currentUser));
-
         return applicationRepository.save(application);
     }
 

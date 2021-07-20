@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -37,5 +38,6 @@ public class StatementOfCostsDto {
 
     @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Past
     private LocalDate exchangeRateDay;
 }

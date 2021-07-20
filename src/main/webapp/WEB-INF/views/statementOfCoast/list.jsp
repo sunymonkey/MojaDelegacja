@@ -25,17 +25,17 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach items="${application}" var="application">
+                            <c:forEach items="${statementOfCosts}" var="statementOfCosts">
                                 <tr>
-                                    <td class="d-none d-xl-table-cell"><c:out value="${application.id}"/></td>
-                                    <td class="d-none d-xl-table-cell"><c:out value="${application.purpose}"/></td>
-                                    <td class="d-none d-xl-table-cell"><c:out value="${application.fromDate}"/></td>
-                                    <td class="d-none d-xl-table-cell"><c:out value="${application.toDate}"/></td>
-                                    <td class="d-none d-xl-table-cell"><c:out value="${application.countriesDiet.country}"/></td>
-                                    <td><span class="badge bg-success"><c:out value="${application.dokumentDetails.status.status}"/></span></td>
+                                    <td class="d-none d-xl-table-cell"><c:out value="${statementOfCosts.id}"/></td>
+                                    <td class="d-none d-xl-table-cell"><c:out value="${statementOfCosts.purpose}"/></td>
+                                    <td class="d-none d-xl-table-cell"><c:out value="${statementOfCosts.fromDate}"/></td>
+                                    <td class="d-none d-xl-table-cell"><c:out value="${statementOfCosts.toDate}"/></td>
+                                    <td class="d-none d-xl-table-cell"><c:out value="${statementOfCosts.countriesDiet.country}"/></td>
+                                    <td><span class="badge bg-success"><c:out value="${statementOfCosts.status}"/></span></td>
                                     <td><div class="btn-group btn-group-sm mb-4" role="group" aria-label="Small button group">
-                                        <a href="/application/details/<c:out value="${application.id}"/>" class="btn btn-success">Szczegóły</a>
-                                        <a href="/application/change/<c:out value="${application.id}"/>" class="btn btn-success">Zmień status</a>
+                                        <a href="/diet/details/<c:out value="${statementOfCosts.id}"/>" class="btn btn-success">Szczegóły</a>
+<%--                                        <a href="/diet/change/<c:out value="${statementOfCosts.id}"/>" class="btn btn-success">Zmień status</a>--%>
                                     </div> </td>
                                 </tr>
                             </c:forEach>

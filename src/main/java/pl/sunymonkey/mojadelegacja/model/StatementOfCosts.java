@@ -12,6 +12,8 @@ import javax.persistence.OneToOne;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -58,4 +60,7 @@ public class StatementOfCosts extends BaseEntity{
     @OneToOne
     @JoinColumn(name = "dokument_details")
     private DokumentDetails dokumentDetails;
+
+    @OneToMany(mappedBy = "statementOfCosts")
+    private List<Expenses> expenses = new ArrayList<>();
 }

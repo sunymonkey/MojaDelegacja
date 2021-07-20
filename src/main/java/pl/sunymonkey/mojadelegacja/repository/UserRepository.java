@@ -10,4 +10,7 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByUsername(String userLogin);
+
+    @Query(value = "SELECT u FROM User u JOIN u.roles r WHERE r.name = ?1")
+    List<User> allEmployee(String role);
 }
