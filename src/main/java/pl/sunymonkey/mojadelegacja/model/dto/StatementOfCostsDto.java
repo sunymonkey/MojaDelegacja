@@ -40,4 +40,7 @@ public class StatementOfCostsDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Past
     private LocalDate exchangeRateDay;
+
+    private String documentType;
+    private Long documentID;
 }

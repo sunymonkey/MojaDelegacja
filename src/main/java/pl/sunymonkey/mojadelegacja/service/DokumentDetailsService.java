@@ -10,5 +10,8 @@ public interface DokumentDetailsService {
     DokumentDetails newDokument(@AuthenticationPrincipal CurrentUser currentUser);
     DokumentDetails acceptDokument(@AuthenticationPrincipal CurrentUser currentUser,
                                    DokumentDetails dokumentDetails);
+    DokumentDetails sendDokument(@AuthenticationPrincipal CurrentUser currentUser,
+                                 DokumentDetails dokumentDetails);
 
+    DokumentDetails rejectDokument(CurrentUser currentUser, DokumentDetails dokumentDetails);
 }

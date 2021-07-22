@@ -7,7 +7,7 @@
 <main class="content">
     <div class="container-fluid p-0">
 
-        <h1 class="h3 mb-3">Podsumowanie</h1>
+        <h1 class="h3 mb-3">Rozliczenie delegacji</h1>
 
         <div class="row">
             <div class="col-6">
@@ -97,7 +97,6 @@
                         <h5 class="card-title mb-0">Wydatki</h5>
                     </div>
                     <div class="card-body">
-                        <a href="/diet/expenses/add/<c:out value="${statementOfCosts.id}"/>" class="btn btn-success">Dodaj wydatek</a>
                         <table class="table table-hover my-0">
                             <thead>
                             <tr>
@@ -124,23 +123,59 @@
                 </div>
             </div>
         </div>
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    Podsumowanie
+                </div>
+                <div class="card-body">
+                    <table class="table-primary">
+                        <tbody>
+                        <tr>
+                            <td>Łączny koszt delegacji:</td>
+                            <td> <c:out value="${statementOfCosts.delegationCosts.totalCostsOfTheDelegation}"/></td>
+                        </tr>
+                        <tr>
+                            <td>Wydatki opłacone przez pracownika:</td>
+                            <td> <c:out value="${statementOfCosts.delegationCosts.sumExpendedEmployee}"/></td>
+                        </tr>
+                        <tr>
+                            <td>Pobrane zaliczki:</td>
+                            <td> <c:out value="${statementOfCosts.delegationCosts.sumAdvancesCollected}"/></td>
+                        </tr>
+                        <tr>
+                            <td>Do zwrotu pracownikowi:</td>
+                            <td> <c:out value="${statementOfCosts.delegationCosts.returnedToTheEmployee}"/></td>
+                        </tr>
+                        <tr>
+                            <td>Wydatki opłacone kartą firmową:</td>
+                            <td> <c:out value="${statementOfCosts.delegationCosts.sumExpendedFirmCard}"/></td>
+                        </tr>
+                        <tr>
+                            <td>Wydatki opłacone przelewem:</td>
+                            <td> <c:out value="${statementOfCosts.delegationCosts.sumExpendedFirmTransfer}"/></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
         <div class="row">
 
             <div class="col-4 offset-4">
                 <div class="card">
                     <div class="card-header">
                         <div class="offset-4">
-                            <h5 class="card-title mb-0">Podsumowanie</h5>
+                            <h5 class="card-title mb-0">Opcje</h5>
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="offset-3">
-                            <a href="/diet/details" class="btn btn-warning">Anuluj</a>
-                            <a href="/diet/final/<c:url value="${statementOfCosts.id}"/>" class="btn btn-primary btn-lg">Podgląd</a>
-<%--                            <button class="btn btn-primary btn-lg">Usuń</button>--%>
-                            <c:if test="${statementOfCosts.dokumentDetails.status.status eq 'Nowy'}">
-                                <a href="/diet/send/<c:url value="${statementOfCosts.id}"/>" class="btn btn-primary btn-lg">Wyślij</a>
-                            </c:if>
+                            <div class="btn-group btn-group-sm mb-4">
+                                <a href="/index" class="btn btn-warning">Anuluj</a>
+                                <a href="/diet/accept/<c:url value="${statementOfCosts.id}"/>" class="btn btn-primary btn-lg">Akceptuj rozliczenie</a>
+                                <a href="/diet/reject/<c:url value="${statementOfCosts.id}"/>" class="btn btn-primary btn-lg">Odrzuć rozliczenie</a>
+                            </div>
                         </div>
                     </div>
                 </div>

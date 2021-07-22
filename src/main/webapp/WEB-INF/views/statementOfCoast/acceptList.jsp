@@ -20,7 +20,6 @@
                                 <th class="d-none d-xl-table-cell">from date</th>
                                 <th class="d-none d-xl-table-cell">to date</th>
                                 <th class="d-none d-xl-table-cell">gdzie</th>
-                                <th>Status</th>
                                 <th class="d-none d-md-table-cell">Opcje</th>
                             </tr>
                             </thead>
@@ -32,10 +31,9 @@
                                     <td class="d-none d-xl-table-cell"><c:out value="${statementOfCosts.fromDate}"/></td>
                                     <td class="d-none d-xl-table-cell"><c:out value="${statementOfCosts.toDate}"/></td>
                                     <td class="d-none d-xl-table-cell"><c:out value="${statementOfCosts.countriesDiet.country}"/></td>
-                                    <td><span class="badge bg-success"><c:out value="${statementOfCosts.dokumentDetails.status.status}"/></span></td>
                                     <td><div class="btn-group btn-group-sm mb-4" role="group" aria-label="Small button group">
-                                        <a href="/diet/details/<c:out value="${statementOfCosts.id}"/>" class="btn btn-success">Szczegóły</a>
-<%--                                        <a href="/diet/change/<c:out value="${statementOfCosts.id}"/>" class="btn btn-success">Zmień status</a>--%>
+                                        <a href="/diet/list/accept/<c:out value="${statementOfCosts.id}"/>" class="btn btn-success">Szczegóły i akceptacja</a>
+                                            <%--                                        <a href="/diet/change/<c:out value="${statementOfCosts.id}"/>" class="btn btn-success">Zmień status</a>--%>
                                     </div> </td>
                                 </tr>
                             </c:forEach>

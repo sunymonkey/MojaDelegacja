@@ -23,6 +23,14 @@ public class DokumentDetails extends BaseEntity {
     @JoinColumn(name = "accept_user_id")
     private User acceptUser;
     private LocalDateTime acceptDateTime;
+    @OneToOne
+    @JoinColumn(name = "send_user_id")
+    private User sendUser;
+    private LocalDateTime sendDateTime;
+    @OneToOne
+    @JoinColumn(name = "reject_user_id")
+    private User rejectUser;
+    private LocalDateTime rejectDateTime;
 
     @ManyToOne
     @JoinColumn(name = "status_id")

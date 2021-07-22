@@ -35,7 +35,7 @@
                                     <td><span class="badge bg-success"><c:out value="${application.dokumentDetails.status.status}"/></span></td>
                                     <td><div class="btn-group btn-group-sm mb-4" role="group" aria-label="Small button group">
                                         <a href="/application/details/<c:out value="${application.id}"/>" class="btn btn-success">Szczegóły</a>
-                                        <a href="/application/change/<c:out value="${application.id}"/>" class="btn btn-success">Zmień status</a>
+                                        <a href="/diet/add/application/<c:out value="${application.id}"/>" class="btn btn-success">Stwórz rozliczenie</a>
                                     </div> </td>
                                 </tr>
                             </c:forEach>

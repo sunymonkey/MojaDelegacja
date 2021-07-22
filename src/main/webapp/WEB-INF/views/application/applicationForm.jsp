@@ -67,6 +67,7 @@
             <div class="offset-5">
                 <div class="col-2">
                     <input class="btn btn-success" type="submit" value="Zapisz">
+                    <a href="/index" class="btn btn-warning">Anuluj</a>
                 </div>
             </div>
         </div>

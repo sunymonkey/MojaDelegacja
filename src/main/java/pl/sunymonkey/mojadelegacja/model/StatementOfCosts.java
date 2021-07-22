@@ -50,6 +50,7 @@ public class StatementOfCosts extends BaseEntity{
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate exchangeRateDay;
+    private double rate;
     private String status;
     private String description;
 

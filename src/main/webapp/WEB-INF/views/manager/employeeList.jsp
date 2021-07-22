@@ -19,7 +19,7 @@
             <table class="table table-hover my-0">
               <thead>
               <tr>
-                <th class="d-none d-xl-table-cell">id</th>
+                <th class="d-none d-xl-table-cell">Id</th>
                 <th class="d-none d-xl-table-cell">Imię</th>
                 <th class="d-none d-xl-table-cell">Nazwisko</th>
                 <th class="d-none d-xl-table-cell">Email</th>
@@ -36,7 +36,7 @@
                   <td class="d-none d-xl-table-cell"><c:out value="${users.email}"/></td>
                   <td class="d-none d-xl-table-cell"><c:out value="${users.username}"/></td>
                   <td><div class="btn-group btn-group-sm mb-4" role="group" aria-label="Small button group">
-                    <a href="/manager/user/details/<c:out value="${statementOfCosts.id}"/>" class="btn btn-success">Szczegóły</a>
+                    <a href="/manager/employee/<c:out value="${users.id}"/>" class="btn btn-success">Szczegóły</a>
                       <%--                                        <a href="/diet/change/<c:out value="${statementOfCosts.id}"/>" class="btn btn-success">Zmień status</a>--%>
                   </div> </td>
                 </tr>

@@ -118,6 +118,7 @@ public class MojaDelegacjaApplication {
                 currencyList.add("NOK");
                 currencyList.add("SEK");
                 currencyList.add("USD");
+                currencyList.add("PLN");
 
                 for (int i = 0; i < currencyList.size(); i++) {
                     if(currencyService.findByCurrency(currencyList.get(i))==null) {

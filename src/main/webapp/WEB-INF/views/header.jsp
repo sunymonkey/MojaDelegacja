@@ -61,6 +61,12 @@
           </a>
         </li>
 
+        <li class="sidebar-item">
+          <a class="sidebar-link" href="<c:url value="/diet/list/person"/>">
+            <i class="align-middle" data-feather="list"></i> <span class="align-middle">Moje rozliczenia delegacji</span>
+          </a>
+        </li>
+
         <sec:authorize access="hasRole('ADMIN')">
 
 
@@ -73,8 +79,8 @@
         </li>
 
         <li class="sidebar-item">
-          <a class="sidebar-link" href="ui-forms.html">
-            <i class="align-middle" data-feather="list"></i> <span class="check-circle">Akceptacja delegacji</span>
+          <a class="sidebar-link" href="<c:url value="/diet/list/accept"/>">
+            <i class="align-middle" data-feather="list"></i> <span class="check-circle">Akceptacja rozliczeń delegacji</span>
           </a>
         </li>
 
@@ -179,10 +185,8 @@
               <span class="text-dark"><security:authentication property="principal.username" /></span>
             </a>
             <div class="dropdown-menu dropdown-menu-end">
-              <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
-              <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>
+              <a class="dropdown-item" href="<c:url value="/manager/profile"/>"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
+<%--              <a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>--%>
               <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
               <div class="dropdown-divider"></div>
              <a class="dropdown-item">

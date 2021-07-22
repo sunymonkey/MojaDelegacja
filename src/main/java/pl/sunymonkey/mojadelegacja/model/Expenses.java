@@ -13,8 +13,9 @@ import java.util.Set;
 public class Expenses extends BaseEntity{
     private LocalDate dateExpenses;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    private Set<TypeOfExpenses> type;
+    @ManyToOne
+    @JoinColumn(name = "type_id")
+    private TypeOfExpenses type;
 
     private Long kmOrNumber;
     private double amount;

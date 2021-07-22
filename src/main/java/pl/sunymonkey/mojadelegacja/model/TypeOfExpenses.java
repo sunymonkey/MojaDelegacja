@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import java.util.Set;
 
 @Entity
@@ -13,7 +14,4 @@ import java.util.Set;
 public class TypeOfExpenses extends BaseEntity {
 
     private String type;
-
-    @ManyToMany(mappedBy = "type")
-    private Set<Expenses> expenses;
 }

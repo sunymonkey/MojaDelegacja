@@ -50,9 +50,7 @@ public class ExpensesServiceImpl implements ExpensesService {
         expenses.setCurrency(currency);
         expenses.setDescription(dto.getDescription());
         TypeOfExpenses typeOfExpenses = typeOfExpensesRepository.getById(dto.getType());
-        Set<TypeOfExpenses> typeSet = new HashSet<>();
-        typeSet.add(typeOfExpenses);
-        expenses.setType(typeSet);
+        expenses.setType(typeOfExpenses);
         expenses.setKmOrNumber(dto.getKmOrNumber());
         PaymentMethod paymentMethod = paymentMethodRepository.getById(dto.getPaymentMethod());
         expenses.setPaymentMethod(paymentMethod);
