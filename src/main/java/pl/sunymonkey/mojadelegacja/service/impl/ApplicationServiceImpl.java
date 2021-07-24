@@ -11,6 +11,7 @@ import pl.sunymonkey.mojadelegacja.repository.ApplicationRepository;
 import pl.sunymonkey.mojadelegacja.repository.CountriesDietRepository;
 import pl.sunymonkey.mojadelegacja.security.CurrentUser;
 import pl.sunymonkey.mojadelegacja.service.ApplicationService;
+import pl.sunymonkey.mojadelegacja.service.CountriesDietService;
 import pl.sunymonkey.mojadelegacja.service.DokumentDetailsService;
 
 import java.time.LocalDateTime;
@@ -22,14 +23,14 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     private final ApplicationRepository applicationRepository;
 
-    private final CountriesDietRepository countriesDietRepository;
+    @Autowired
+    CountriesDietService countriesDietService;
 
     @Autowired
     DokumentDetailsService dokumentDetailsService;
 
-    public ApplicationServiceImpl(ApplicationRepository applicationRepository, CountriesDietRepository countriesDietRepository) {
+    public ApplicationServiceImpl(ApplicationRepository applicationRepository) {
         this.applicationRepository = applicationRepository;
-        this.countriesDietRepository = countriesDietRepository;
     }
 
 
@@ -59,7 +60,7 @@ public class ApplicationServiceImpl implements ApplicationService {
         application.setPurpose(dto.getPurpose());
         application.setFromDate(dto.getFromDate());
         application.setToDate(dto.getToDate());
-        CountriesDiet countriesDiet = countriesDietRepository.getById(dto.getCountry());
+        CountriesDiet countriesDiet = countriesDietService.getById(dto.getCountry());
         application.setCountriesDiet(countriesDiet);
         if(dto.getDescription()!=null){
             application.setDescription(dto.getDescription());

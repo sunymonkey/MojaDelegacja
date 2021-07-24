@@ -15,6 +15,7 @@ import pl.sunymonkey.mojadelegacja.service.UserService;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -81,5 +82,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getById(Long id) {
         return userRepository.getById(id);
+    }
+
+    @Override
+    public List<User> allEmployee(String role) {
+        return userRepository.allEmployee(role);
+    }
+
+    @Override
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
     }
 }

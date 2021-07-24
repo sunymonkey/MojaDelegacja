@@ -27,8 +27,6 @@ import java.util.Optional;
 @RequestMapping("/diet")
 public class StatementOfCostsController {
 
-    private final CountriesDietRepository countriesDietRepository;
-    private final UserRepository userRepository;
     private final StatementOfCostsRepository statementOfCostsRepository;
     private final PaymentMethodRepository paymentMethodRepository;
     private final CurrencyRepository currencyRepository;
@@ -51,12 +49,12 @@ public class StatementOfCostsController {
     @Autowired
     ExpensesService expensesService;
 
+    @Autowired
+    CountriesDietService countriesDietService;
+
     private final TypeOfExpensesRepository typeOfExpensesRepository;
 
-
-    public StatementOfCostsController(CountriesDietRepository countriesDietRepository, UserRepository userRepository, StatementOfCostsRepository statementOfCostsRepository, PaymentMethodRepository paymentMethodRepository, CurrencyRepository currencyRepository, TypeOfExpensesRepository typeOfExpensesRepository) {
-        this.countriesDietRepository = countriesDietRepository;
-        this.userRepository = userRepository;
+    public StatementOfCostsController(CountriesDietRepository countriesDietRepository, StatementOfCostsRepository statementOfCostsRepository, PaymentMethodRepository paymentMethodRepository, CurrencyRepository currencyRepository, TypeOfExpensesRepository typeOfExpensesRepository) {
         this.statementOfCostsRepository = statementOfCostsRepository;
         this.paymentMethodRepository = paymentMethodRepository;
         this.currencyRepository = currencyRepository;
@@ -65,7 +63,7 @@ public class StatementOfCostsController {
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String formView(Model model) {
-        List<CountriesDiet> countriesDiets = countriesDietRepository.findAll();
+        List<CountriesDiet> countriesDiets = countriesDietService.findAll();
         model.addAttribute("countries", countriesDiets);
         model.addAttribute("statementOfCostsDto", new StatementOfCostsDto());
         return "statementOfCoast/tempform";
@@ -74,7 +72,7 @@ public class StatementOfCostsController {
     @RequestMapping(value = "/add/application/{id}", method = RequestMethod.GET)
     public String formApplicationView(@PathVariable long id,
                                       Model model) {
-        List<CountriesDiet> countriesDiets = countriesDietRepository.findAll();
+        List<CountriesDiet> countriesDiets = countriesDietService.findAll();
         model.addAttribute("countries", countriesDiets);
 
         StatementOfCostsDto statementOfCostsDto = new StatementOfCostsDto();
@@ -109,7 +107,7 @@ public class StatementOfCostsController {
     @RequestMapping(value = "/add/delegation/{id}", method = RequestMethod.GET)
     public String formDelegationView(@PathVariable long id,
                                       Model model) {
-        List<CountriesDiet> countriesDiets = countriesDietRepository.findAll();
+        List<CountriesDiet> countriesDiets = countriesDietService.findAll();
         model.addAttribute("countries", countriesDiets);
 
         StatementOfCostsDto statementOfCostsDto = new StatementOfCostsDto();
@@ -167,10 +165,7 @@ public class StatementOfCostsController {
     public String detailStatementOfCosts(@PathVariable Long id,
                                          Model model){
         Optional<StatementOfCosts> statementOfCosts = statementOfCostsRepository.findById(id);
-        if(statementOfCosts.isPresent()){
-            model.addAttribute("statementOfCosts", statementOfCosts.get());
-        }
-
+        statementOfCosts.ifPresent(cos -> model.addAttribute("statementOfCosts", cos));
         return "statementOfCoast/details";
     }
 
@@ -194,7 +189,7 @@ public class StatementOfCostsController {
                               @RequestParam long id) throws FileStorageException {
         Expenses expenses;
 
-        DBFile dbFile = new DBFile();
+        DBFile dbFile;
         dbFile = dbFileStorageService.storeFile(dto.getDbFile());
         Optional<StatementOfCosts> byId = statementOfCostsRepository.findById(id);
         StatementOfCosts statementOfCosts = new StatementOfCosts();
@@ -227,8 +222,7 @@ public class StatementOfCostsController {
     @RequestMapping(value = "/list/person", method = RequestMethod.GET)
     public String personList(@AuthenticationPrincipal CurrentUser currentUser,
                              Model model) {
-        String user = currentUser.getUsername();
-        List<StatementOfCosts> person = statementOfCoastService.findByUser(user);
+        List<StatementOfCosts> person = statementOfCoastService.findByUser(currentUser.getUsername());
         model.addAttribute("statementOfCosts", person);
         return "statementOfCoast/list";
     }
@@ -237,10 +231,8 @@ public class StatementOfCostsController {
     public String finalCalculate(@PathVariable long id,
                                  Model model){
         Optional<StatementOfCosts> statement = statementOfCostsRepository.findById(id);
-        DelegationCosts delegationCosts;
-        if(statement.isPresent()){
-            delegationCosts = delegationCostsService.finishCalculateAndSave(statement.get());
-        }
+        statement.ifPresent(statementOfCosts -> delegationCostsService.finishCalculateAndSave(statementOfCosts));
+
         model.addAttribute("statementOfCosts", statement.get());
         return "raport/preview";
     }

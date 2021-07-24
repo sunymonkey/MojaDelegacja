@@ -16,6 +16,7 @@ import pl.sunymonkey.mojadelegacja.model.dto.ApplicationDto;
 import pl.sunymonkey.mojadelegacja.repository.CountriesDietRepository;
 import pl.sunymonkey.mojadelegacja.security.CurrentUser;
 import pl.sunymonkey.mojadelegacja.service.ApplicationService;
+import pl.sunymonkey.mojadelegacja.service.CountriesDietService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -25,19 +26,15 @@ import java.util.Optional;
 @RequestMapping("/application")
 public class ApplicationController {
 
-    private final CountriesDietRepository countriesDietRepository;
+    @Autowired
+    CountriesDietService countriesDietService;
 
     @Autowired
     ApplicationService applicationService;
 
-    @Autowired
-    public ApplicationController(CountriesDietRepository countriesDietRepository) {
-        this.countriesDietRepository = countriesDietRepository;
-    }
-
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String formView(Model model) {
-        model.addAttribute("countries", countriesDietRepository.findAll());
+        model.addAttribute("countries", countriesDietService.findAll());
         model.addAttribute("applicationDto", new ApplicationDto());
         return "application/applicationForm";
     }
@@ -61,7 +58,7 @@ public class ApplicationController {
                 return "redirect:/application/list";
             }
         }
-        model.addAttribute("countries", countriesDietRepository.findAll());
+        model.addAttribute("countries", countriesDietService.findAll());
         model.addAttribute("error", globalError.getDefaultMessage());
         return "application/applicationForm";
     }
@@ -78,9 +75,7 @@ public class ApplicationController {
     public String details(@PathVariable Long id,
                           Model model) {
         Optional<Application> application = applicationService.findById(id);
-        if(application.isPresent()) {
-            model.addAttribute("application", application.get());
-        }
+        application.ifPresent(application1 -> model.addAttribute("application", application1));
         return "application/applicationDetails";
     }
 
@@ -88,9 +83,7 @@ public class ApplicationController {
     public String accept(@PathVariable Long id,
                          Model model) {
         Optional<Application> application = applicationService.findById(id);
-        if(application.isPresent()) {
-            model.addAttribute("application", application.get());
-        }
+        application.ifPresent(application1 -> model.addAttribute("application", application1));
         return "application/applicationStatusChange";
     }
 

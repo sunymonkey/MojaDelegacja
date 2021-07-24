@@ -12,6 +12,7 @@ import pl.sunymonkey.mojadelegacja.repository.CountriesDietRepository;
 import pl.sunymonkey.mojadelegacja.repository.DelegationRepository;
 import pl.sunymonkey.mojadelegacja.repository.UserRepository;
 import pl.sunymonkey.mojadelegacja.security.CurrentUser;
+import pl.sunymonkey.mojadelegacja.service.CountriesDietService;
 import pl.sunymonkey.mojadelegacja.service.DelegationService;
 import pl.sunymonkey.mojadelegacja.service.DokumentDetailsService;
 import pl.sunymonkey.mojadelegacja.service.UserService;
@@ -25,7 +26,8 @@ public class DelegationServiceImpl implements DelegationService {
 
     private final DelegationRepository delegationRepository;
 
-    private final CountriesDietRepository countriesDietRepository;
+    @Autowired
+    CountriesDietService countriesDietService;
 
     @Autowired
     DokumentDetailsService dokumentDetailsService;
@@ -34,9 +36,8 @@ public class DelegationServiceImpl implements DelegationService {
     UserService userService;
 
 
-    public DelegationServiceImpl(DelegationRepository delegationRepository, CountriesDietRepository countriesDietRepository) {
+    public DelegationServiceImpl(DelegationRepository delegationRepository) {
         this.delegationRepository = delegationRepository;
-        this.countriesDietRepository = countriesDietRepository;
     }
 
     @Override
@@ -65,7 +66,7 @@ public class DelegationServiceImpl implements DelegationService {
         delegation.setPurpose(dto.getPurpose());
         delegation.setFromDate(dto.getFromDate());
         delegation.setToDate(dto.getToDate());
-        CountriesDiet countriesDiet = countriesDietRepository.getById(dto.getCountry());
+        CountriesDiet countriesDiet = countriesDietService.getById(dto.getCountry());
         delegation.setCountriesDiet(countriesDiet);
         if(dto.getDescription()!=null){
             delegation.setDescription(dto.getDescription());

@@ -10,6 +10,7 @@ import pl.sunymonkey.mojadelegacja.repository.DelegationCostsRepository;
 import pl.sunymonkey.mojadelegacja.repository.StatementOfCostsRepository;
 import pl.sunymonkey.mojadelegacja.repository.UserRepository;
 import pl.sunymonkey.mojadelegacja.security.CurrentUser;
+import pl.sunymonkey.mojadelegacja.service.CountriesDietService;
 import pl.sunymonkey.mojadelegacja.service.DelegationCostsService;
 import pl.sunymonkey.mojadelegacja.service.DokumentDetailsService;
 import pl.sunymonkey.mojadelegacja.service.StatementOfCoastService;
@@ -22,7 +23,8 @@ public class StatementOfCoastServiceImpl implements StatementOfCoastService {
 
     private final StatementOfCostsRepository statementOfCostsRepository;
 
-    private final CountriesDietRepository countriesDietRepository;
+    @Autowired
+    CountriesDietService countriesDietService;
 
     @Autowired
     DelegationCostsService delegationCostsService;
@@ -31,9 +33,8 @@ public class StatementOfCoastServiceImpl implements StatementOfCoastService {
     DokumentDetailsService dokumentDetailsService;
 
 
-    public StatementOfCoastServiceImpl(StatementOfCostsRepository statementOfCostsRepository, CountriesDietRepository countriesDietRepository) {
+    public StatementOfCoastServiceImpl(StatementOfCostsRepository statementOfCostsRepository) {
         this.statementOfCostsRepository = statementOfCostsRepository;
-        this.countriesDietRepository = countriesDietRepository;
     }
 
     @Override
@@ -55,7 +56,7 @@ public class StatementOfCoastServiceImpl implements StatementOfCoastService {
         statementOfCosts.setFromTime(dto.getFromTime());
         statementOfCosts.setToDate(dto.getToDate());
         statementOfCosts.setToTime(dto.getToTime());
-        CountriesDiet countriesDiet = countriesDietRepository.getById(dto.getCountry());
+        CountriesDiet countriesDiet = countriesDietService.getById(dto.getCountry());
         statementOfCosts.setCountriesDiet(countriesDiet);
         statementOfCosts.setStatus("OPEN");
         statementOfCosts.setExchangeRateDay(dto.getExchangeRateDay());

@@ -16,7 +16,9 @@ import pl.sunymonkey.mojadelegacja.model.dto.DelegationDto;
 import pl.sunymonkey.mojadelegacja.repository.CountriesDietRepository;
 import pl.sunymonkey.mojadelegacja.repository.UserRepository;
 import pl.sunymonkey.mojadelegacja.security.CurrentUser;
+import pl.sunymonkey.mojadelegacja.service.CountriesDietService;
 import pl.sunymonkey.mojadelegacja.service.DelegationService;
+import pl.sunymonkey.mojadelegacja.service.UserService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -25,25 +27,20 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/delegation")
 public class DelegationController {
-
-    private final CountriesDietRepository countriesDietRepository;
-
-    private final UserRepository userRepository;
+     @Autowired
+    UserService userService;
 
     @Autowired
     DelegationService delegationService;
 
     @Autowired
-    public DelegationController(CountriesDietRepository countriesDietRepository, UserRepository userRepository) {
-        this.countriesDietRepository = countriesDietRepository;
-        this.userRepository = userRepository;
-    }
+    CountriesDietService countriesDietService;
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String formView(Model model) {
-        List<CountriesDiet> countriesDiets = countriesDietRepository.findAll();
+        List<CountriesDiet> countriesDiets = countriesDietService.findAll();
         model.addAttribute("countries", countriesDiets);
-        List<User> users = userRepository.allEmployee("ROLE_EMPLOYEE");
+        List<User> users = userService.allEmployee("ROLE_EMPLOYEE");
         model.addAttribute("users", users);
         model.addAttribute("delegationDto", new DelegationDto());
         return "/delegation/commandDelegation";
@@ -80,9 +77,7 @@ public class DelegationController {
     public String details(@PathVariable long id,
                                Model model) {
         Optional<Delegation> delegation = delegationService.findById(id);
-        if(delegation.isPresent()){
-            model.addAttribute("delegation", delegation.get());
-        }
+        delegation.ifPresent(delegation1 -> model.addAttribute("delegation", delegation1));
         return "delegation/delegationDetails";
     }
 
