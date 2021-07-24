@@ -1,5 +1,6 @@
 package pl.sunymonkey.mojadelegacja.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.sunymonkey.mojadelegacja.exceptions.ExpensesFailedException;
 import pl.sunymonkey.mojadelegacja.model.*;
@@ -8,7 +9,10 @@ import pl.sunymonkey.mojadelegacja.repository.CurrencyRepository;
 import pl.sunymonkey.mojadelegacja.repository.ExpensesRepository;
 import pl.sunymonkey.mojadelegacja.repository.PaymentMethodRepository;
 import pl.sunymonkey.mojadelegacja.repository.TypeOfExpensesRepository;
+import pl.sunymonkey.mojadelegacja.service.CurrencyService;
 import pl.sunymonkey.mojadelegacja.service.ExpensesService;
+import pl.sunymonkey.mojadelegacja.service.PaymentMethodService;
+import pl.sunymonkey.mojadelegacja.service.TypoOfExpensesService;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -18,17 +22,17 @@ public class ExpensesServiceImpl implements ExpensesService {
 
     private final ExpensesRepository expensesRepository;
 
-    private final PaymentMethodRepository paymentMethodRepository;
+    @Autowired
+    PaymentMethodService paymentMethodService;
 
-    private final CurrencyRepository currencyRepository;
+    @Autowired
+    CurrencyService currencyService;
 
-    private final TypeOfExpensesRepository typeOfExpensesRepository;
+    @Autowired
+    TypoOfExpensesService typoOfExpensesService;
 
-    public ExpensesServiceImpl(ExpensesRepository expensesRepository, PaymentMethodRepository paymentMethodRepository, CurrencyRepository currencyRepository, TypeOfExpensesRepository typeOfExpensesRepository) {
+    public ExpensesServiceImpl(ExpensesRepository expensesRepository) {
         this.expensesRepository = expensesRepository;
-        this.paymentMethodRepository = paymentMethodRepository;
-        this.currencyRepository = currencyRepository;
-        this.typeOfExpensesRepository = typeOfExpensesRepository;
     }
 
     @Override
@@ -46,13 +50,13 @@ public class ExpensesServiceImpl implements ExpensesService {
         Expenses expenses = new Expenses();
         expenses.setDateExpenses(dto.getDateExpenses());
         expenses.setAmount(dto.getAmount());
-        Currency currency = currencyRepository.getById(dto.getCurrency());
+        Currency currency = currencyService.getById(dto.getCurrency());
         expenses.setCurrency(currency);
         expenses.setDescription(dto.getDescription());
-        TypeOfExpenses typeOfExpenses = typeOfExpensesRepository.getById(dto.getType());
+        TypeOfExpenses typeOfExpenses = typoOfExpensesService.getById(dto.getType());
         expenses.setType(typeOfExpenses);
         expenses.setKmOrNumber(dto.getKmOrNumber());
-        PaymentMethod paymentMethod = paymentMethodRepository.getById(dto.getPaymentMethod());
+        PaymentMethod paymentMethod = paymentMethodService.getById(dto.getPaymentMethod());
         expenses.setPaymentMethod(paymentMethod);
         expenses.setStatementOfCosts(statementOfCoast);
         expenses.setFiles(dbFile);

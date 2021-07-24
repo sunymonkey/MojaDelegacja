@@ -23,4 +23,9 @@ public class TypoOfExpensesServiceImpl implements TypoOfExpensesService {
     public TypeOfExpenses save(TypeOfExpenses typeOfExpenses) {
         return typeOfExpensesRepository.save(typeOfExpenses);
     }
+
+    @Override
+    public TypeOfExpenses getById(Long id) {
+        return typeOfExpensesRepository.getById(id);
+    }
 }

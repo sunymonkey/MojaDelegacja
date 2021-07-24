@@ -22,4 +22,9 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
     public PaymentMethod findByMethod(String method) {
         return paymentMethodRepository.findByMethod(method);
     }
+
+    @Override
+    public PaymentMethod getById(Long id) {
+        return paymentMethodRepository.getById(id);
+    }
 }

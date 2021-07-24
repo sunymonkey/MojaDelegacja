@@ -14,6 +14,7 @@ import pl.sunymonkey.mojadelegacja.repository.UserRepository;
 import pl.sunymonkey.mojadelegacja.security.CurrentUser;
 import pl.sunymonkey.mojadelegacja.service.DelegationService;
 import pl.sunymonkey.mojadelegacja.service.DokumentDetailsService;
+import pl.sunymonkey.mojadelegacja.service.UserService;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -29,12 +30,13 @@ public class DelegationServiceImpl implements DelegationService {
     @Autowired
     DokumentDetailsService dokumentDetailsService;
 
-    private final UserRepository userRepository;
+    @Autowired
+    UserService userService;
 
-    public DelegationServiceImpl(DelegationRepository delegationRepository, CountriesDietRepository countriesDietRepository, UserRepository userRepository) {
+
+    public DelegationServiceImpl(DelegationRepository delegationRepository, CountriesDietRepository countriesDietRepository) {
         this.delegationRepository = delegationRepository;
         this.countriesDietRepository = countriesDietRepository;
-        this.userRepository = userRepository;
     }
 
     @Override
@@ -68,7 +70,7 @@ public class DelegationServiceImpl implements DelegationService {
         if(dto.getDescription()!=null){
             delegation.setDescription(dto.getDescription());
         }
-        User user=userRepository.getById(dto.getMandatory());
+        User user = userService.getById(dto.getMandatory());
         delegation.setMandatory(user);
 
         delegation.setDokumentDetails(dokumentDetailsService.newDokument(currentUser));

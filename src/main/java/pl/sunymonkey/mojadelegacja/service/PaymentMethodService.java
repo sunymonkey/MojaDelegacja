@@ -5,4 +5,6 @@ import pl.sunymonkey.mojadelegacja.model.PaymentMethod;
 public interface PaymentMethodService {
     PaymentMethod save(PaymentMethod paymentMethod);
     PaymentMethod findByMethod(String method);
+
+    PaymentMethod getById(Long id);
 }

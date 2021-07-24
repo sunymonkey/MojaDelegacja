@@ -10,6 +10,7 @@ import pl.sunymonkey.mojadelegacja.repository.StatusRepository;
 import pl.sunymonkey.mojadelegacja.security.CurrentUser;
 import pl.sunymonkey.mojadelegacja.service.DokumentDetailsService;
 import pl.sunymonkey.mojadelegacja.service.EmailSender;
+import pl.sunymonkey.mojadelegacja.service.StatusService;
 
 import java.time.LocalDateTime;
 
@@ -19,14 +20,14 @@ public class DokumentDetailsServiceImpl implements DokumentDetailsService {
 
     private final DokumentDetailsRepository dokumentDetailsRepository;
 
-    private final StatusRepository statusRepository;
-
     @Autowired
     EmailSender emailSender;
 
-    public DokumentDetailsServiceImpl(DokumentDetailsRepository dokumentDetailsRepository, StatusRepository statusRepository) {
+    @Autowired
+    StatusService statusService;
+
+    public DokumentDetailsServiceImpl(DokumentDetailsRepository dokumentDetailsRepository) {
         this.dokumentDetailsRepository = dokumentDetailsRepository;
-        this.statusRepository = statusRepository;
     }
 
     @Override
@@ -39,7 +40,7 @@ public class DokumentDetailsServiceImpl implements DokumentDetailsService {
         DokumentDetails dokumentDetails = new DokumentDetails();
         dokumentDetails.setCreateUser(currentUser.getUser());
         dokumentDetails.setCreateDateTime(LocalDateTime.now());
-        Status nowy = statusRepository.findByStatus("Nowy");
+        Status nowy = statusService.findByStatus("Nowy");
         dokumentDetails.setStatus(nowy);
         dokumentDetailsRepository.save(dokumentDetails);
         String content = "Stworzono nowy dokument przez " + currentUser.getUsername();
@@ -51,7 +52,7 @@ public class DokumentDetailsServiceImpl implements DokumentDetailsService {
     public DokumentDetails acceptDokument(CurrentUser currentUser, DokumentDetails dokumentDetails) {
         dokumentDetails.setAcceptUser(currentUser.getUser());
         dokumentDetails.setAcceptDateTime(LocalDateTime.now());
-        Status accept = statusRepository.findByStatus("Zaakceptowany");
+        Status accept = statusService.findByStatus("Zaakceptowany");
         dokumentDetails.setStatus(accept);
         dokumentDetailsRepository.save(dokumentDetails);
         String content = "Zaakceptowany dokument przez " + currentUser.getUsername();
@@ -63,7 +64,7 @@ public class DokumentDetailsServiceImpl implements DokumentDetailsService {
     public DokumentDetails sendDokument(CurrentUser currentUser, DokumentDetails dokumentDetails) {
         dokumentDetails.setSendUser(currentUser.getUser());
         dokumentDetails.setSendDateTime(LocalDateTime.now());
-        Status send = statusRepository.findByStatus("Wysłany");
+        Status send = statusService.findByStatus("Wysłany");
         dokumentDetails.setStatus(send);
         dokumentDetailsRepository.save(dokumentDetails);
         String content = "Wysłano nowy dokument przez " + currentUser.getUsername();
@@ -75,7 +76,7 @@ public class DokumentDetailsServiceImpl implements DokumentDetailsService {
     public DokumentDetails rejectDokument(CurrentUser currentUser, DokumentDetails dokumentDetails) {
         dokumentDetails.setRejectUser(currentUser.getUser());
         dokumentDetails.setRejectDateTime(LocalDateTime.now());
-        Status reject = statusRepository.findByStatus("Odmowa");
+        Status reject = statusService.findByStatus("Odmowa");
         dokumentDetails.setStatus(reject);
         dokumentDetailsRepository.save(dokumentDetails);
         String content = "Odrzucono dokument przez " + currentUser.getUsername();

@@ -9,6 +9,7 @@ import pl.sunymonkey.mojadelegacja.model.User;
 import pl.sunymonkey.mojadelegacja.model.dto.RegisterDto;
 import pl.sunymonkey.mojadelegacja.repository.RoleRepository;
 import pl.sunymonkey.mojadelegacja.repository.UserRepository;
+import pl.sunymonkey.mojadelegacja.service.RoleService;
 import pl.sunymonkey.mojadelegacja.service.UserService;
 
 import java.util.Arrays;
@@ -21,17 +22,20 @@ public class UserServiceImpl implements UserService {
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
 
-    @Autowired
     private UserRepository userRepository;
 
     @Autowired
-    RoleRepository roleRepository;
+    RoleService roleService;
+
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public User save(User u) {
         u.setPassword(passwordEncoder.encode(u.getPassword()));
         u.setEnabled(true);
-        Role userRole = roleRepository.findByName("ROLE_EMPLOYEE");
+        Role userRole = roleService.findByName("ROLE_EMPLOYEE");
         u.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
         return userRepository.save(u);
     }
@@ -40,8 +44,8 @@ public class UserServiceImpl implements UserService {
     public User saveAdmin(User u) {
         u.setPassword(passwordEncoder.encode(u.getPassword()));
         u.setEnabled(true);
-        Role userRole = roleRepository.findByName("ROLE_EMPLOYEE");
-        Role adminRole = roleRepository.findByName("ROLE_ADMIN");
+        Role userRole = roleService.findByName("ROLE_EMPLOYEE");
+        Role adminRole = roleService.findByName("ROLE_ADMIN");
         u.setRoles(new HashSet<Role>(Arrays.asList(userRole,adminRole)));
         return userRepository.save(u);
     }
@@ -62,7 +66,7 @@ public class UserServiceImpl implements UserService {
                 || dto.getConfirm_password()==null || dto.getConfirm_password().isEmpty()){
             throw new RegisterFailedException("Password incorrect");
         }
-        Role userRole = roleRepository.findByName("ROLE_EMPLOYEE");
+        Role userRole = roleService.findByName("ROLE_EMPLOYEE");
         User user = new User(dto.getFirstName(),
                              dto.getLastName(),
                              dto.getLogin(),
@@ -72,5 +76,10 @@ public class UserServiceImpl implements UserService {
                              new HashSet<Role>(Arrays.asList(userRole)));
 
         return userRepository.save(user);
+    }
+
+    @Override
+    public User getById(Long id) {
+        return userRepository.getById(id);
     }
 }

@@ -22,4 +22,9 @@ public class CurrencyServiceImpl implements CurrencyService {
     public Currency findByCurrency(String currency) {
         return currencyRepository.findByCurrency(currency);
     }
+
+    @Override
+    public Currency getById(Long id) {
+        return currencyRepository.getById(id);
+    }
 }

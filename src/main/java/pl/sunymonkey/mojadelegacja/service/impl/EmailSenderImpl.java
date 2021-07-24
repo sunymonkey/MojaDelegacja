@@ -11,8 +11,10 @@ import javax.mail.internet.MimeMessage;
 
 @Service
 public class EmailSenderImpl implements EmailSender {
+
     @Autowired
     private JavaMailSender javaMailSender;
+
     @Override
     public void sendEmail(String to, String title, String content) {
         MimeMessage mail = javaMailSender.createMimeMessage();

@@ -13,4 +13,6 @@ public interface UserService {
     List<User> findAll();
     User findByUsername(String username);
     User registerUser(RegisterDto dto) throws RegisterFailedException;
+
+    User getById(Long id);
 }

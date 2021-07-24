@@ -15,11 +15,12 @@
                         <table class="table table-hover my-0">
                             <thead>
                             <tr>
-                                <th class="d-none d-xl-table-cell">id</th>
-                                <th class="d-none d-xl-table-cell">purpose</th>
-                                <th class="d-none d-xl-table-cell">from date</th>
-                                <th class="d-none d-xl-table-cell">to date</th>
-                                <th class="d-none d-xl-table-cell">gdzie</th>
+                                <th class="d-none d-xl-table-cell">Id</th>
+                                <th class="d-none d-xl-table-cell">Kto</th>
+                                <th class="d-none d-xl-table-cell">Cel</th>
+                                <th class="d-none d-xl-table-cell">Od daty</th>
+                                <th class="d-none d-xl-table-cell">Do daty</th>
+                                <th class="d-none d-xl-table-cell">Kraj</th>
                                 <th>Status</th>
                                 <th class="d-none d-md-table-cell">Opcje</th>
                             </tr>
@@ -28,6 +29,7 @@
                             <c:forEach items="${statementOfCosts}" var="statementOfCosts">
                                 <tr>
                                     <td class="d-none d-xl-table-cell"><c:out value="${statementOfCosts.id}"/></td>
+                                    <td class="d-none d-xl-table-cell"><c:out value="${statementOfCosts.dokumentDetails.createUser.username}"/></td>
                                     <td class="d-none d-xl-table-cell"><c:out value="${statementOfCosts.purpose}"/></td>
                                     <td class="d-none d-xl-table-cell"><c:out value="${statementOfCosts.fromDate}"/></td>
                                     <td class="d-none d-xl-table-cell"><c:out value="${statementOfCosts.toDate}"/></td>

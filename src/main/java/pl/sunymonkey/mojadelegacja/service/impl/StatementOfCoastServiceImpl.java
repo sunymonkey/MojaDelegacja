@@ -30,12 +30,10 @@ public class StatementOfCoastServiceImpl implements StatementOfCoastService {
     @Autowired
     DokumentDetailsService dokumentDetailsService;
 
-    private final UserRepository userRepository;
 
-    public StatementOfCoastServiceImpl(StatementOfCostsRepository statementOfCostsRepository, CountriesDietRepository countriesDietRepository, DelegationCostsRepository delegationCostsRepository, UserRepository userRepository) {
+    public StatementOfCoastServiceImpl(StatementOfCostsRepository statementOfCostsRepository, CountriesDietRepository countriesDietRepository) {
         this.statementOfCostsRepository = statementOfCostsRepository;
         this.countriesDietRepository = countriesDietRepository;
-        this.userRepository = userRepository;
     }
 
     @Override
