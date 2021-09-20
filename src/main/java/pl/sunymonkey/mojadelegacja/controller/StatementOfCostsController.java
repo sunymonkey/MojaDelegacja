@@ -54,7 +54,7 @@ public class StatementOfCostsController {
 
     private final TypeOfExpensesRepository typeOfExpensesRepository;
 
-    public StatementOfCostsController(CountriesDietRepository countriesDietRepository, StatementOfCostsRepository statementOfCostsRepository, PaymentMethodRepository paymentMethodRepository, CurrencyRepository currencyRepository, TypeOfExpensesRepository typeOfExpensesRepository) {
+    public StatementOfCostsController(StatementOfCostsRepository statementOfCostsRepository, PaymentMethodRepository paymentMethodRepository, CurrencyRepository currencyRepository, TypeOfExpensesRepository typeOfExpensesRepository) {
         this.statementOfCostsRepository = statementOfCostsRepository;
         this.paymentMethodRepository = paymentMethodRepository;
         this.currencyRepository = currencyRepository;

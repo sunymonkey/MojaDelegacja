@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.sunymonkey.mojadelegacja.exceptions.ApplicationFailedException;
 import pl.sunymonkey.mojadelegacja.model.Application;
 import pl.sunymonkey.mojadelegacja.model.dto.ApplicationDto;
-import pl.sunymonkey.mojadelegacja.repository.CountriesDietRepository;
 import pl.sunymonkey.mojadelegacja.security.CurrentUser;
 import pl.sunymonkey.mojadelegacja.service.ApplicationService;
 import pl.sunymonkey.mojadelegacja.service.CountriesDietService;

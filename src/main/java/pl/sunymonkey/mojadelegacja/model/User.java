@@ -7,10 +7,7 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-//@NoArgsConstructor
-//@AllArgsConstructor
 public class User extends BaseEntity {
-
 
     private String firstName;
     private String lastName;
@@ -40,6 +37,6 @@ public class User extends BaseEntity {
 
     @Override
     public String toString() {
-        return lastName + " " + firstName;
+        return String.format("%s %s", lastName, firstName);
     }
 }

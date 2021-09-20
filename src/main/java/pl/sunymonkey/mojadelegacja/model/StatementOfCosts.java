@@ -41,9 +41,6 @@ public class StatementOfCosts extends BaseEntity{
     @JoinColumn(name="countries_id")
     private CountriesDiet countriesDiet;
 
-//    @OneToOne
-//    @JoinColumn(name="meal_details_id")
-//    private DelegationMealDetails delegationMealDetails;
     private int countBreakfast;
     private int countDinner;
     private int countSupper;
