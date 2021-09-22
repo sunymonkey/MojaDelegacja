@@ -29,6 +29,9 @@
 <div class="wrapper">
 
 <jsp:include page="../header.jsp"/>
+    <div class="main">
+
+        <jsp:include page="../navbar.jsp"/>
 
 <main class="content">
     <div class="container-fluid p-0">
